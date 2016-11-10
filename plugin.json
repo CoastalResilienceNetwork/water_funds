@@ -1,12 +1,12 @@
 {
     "css": [
 		"//cdn.sencha.io/ext-4.1.1-gpl/resources/css/ext-all.css",
-        "plugins/benefits_explorer/js/jquery-ui-1.11.2/jquery-ui.css",
-		"plugins/benefits_explorer/css/prism.css",
-		"plugins/benefits_explorer/css/chosen.css",
-		"plugins/benefits_explorer/css/barChart.css",
-		"plugins/benefits_explorer/css/toggleButtons.css",
-		"plugins/benefits_explorer/css/main.css"
+        "plugins/water_funds/js/jquery-ui-1.11.2/jquery-ui.css",
+		"plugins/water_funds/css/prism.css",
+		"plugins/water_funds/css/chosen.css",
+		"plugins/water_funds/css/barChart.css",
+		"plugins/water_funds/css/toggleButtons.css",
+		"plugins/water_funds/css/main.css"
     ],
     "use": {
         "underscore": { "attach": "_" },
