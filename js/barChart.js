@@ -6,7 +6,8 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui ) {
 
         return declare(null, {
 			makeChart: function(t){	
-			// symbolize x axis
+				console.log('test')
+			/* // symbolize x axis
 				var l = $('.vertAndLines').find('.dashedLines');  
 				$.each(l, function(i,v){
 					if (i == l.length - 1){
@@ -23,16 +24,16 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui ) {
 				$('.sumBars').css('width', bWw + 'px')
 				
 				var a1 = [1,5,3,4]
-				t.barChart.updateChart(a1, t)
+				t.barChart.updateChart(a1, t) */
 			},
-			updateChart: function(a, t){ 
+			/* updateChart: function(a, t){ 
 				var colors = ['#8FB842', '#cec83a', '#CBA62C', '#c8841d','#4052B4', '#406FB4', '#408cb4','#4A8B6D','#4FA84A']
 				$('.barHolder').find('.sumBars').each(function(i,v){
 					$(v).css("background-color", colors[i]);
 					var h = a[i]*20;
 					$(v).animate({ height: h + '%'});
 				});
-			}
+			} */
         });
     }
 );
