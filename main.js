@@ -97,6 +97,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 		render: function() {
 			
 			$('.basemap-selector').trigger('change', 3);
+			this.mapScale  = this.map.getScale();
 			// BRING IN OTHER JS FILES
 			this.barChart = new barChart();
 			this.navigation = new navigation();

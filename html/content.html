@@ -6,69 +6,71 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!--Opening view of the app. Give a little background and instructions to get started-->
 
 <!-- Create the totel of the app -->
-<div class='wf_largeHeader wf_hs'><span class='wf_headerHSBig'>&#xAB;</span>Filter Water Funds:</div>
+<div id='wf_filterHeader' class='wf_largeHeader wf_hs'>Filter Water Funds</div>
 
 <!-- Check box listeners and build sliders and multi choice choosen boxes. -->
 <div id='wf_cbListener' class='wf_cbListener'>
 	<!-- Population filter wrapper -->
-	<div class='wf_popWrap'>
-		<div  style='width:280px;' class='wf_popCheckBox'><input type='checkbox' class='be_pointer' value='population'><label class='wf_cbLabel'>Filter funds by Population (in thousands)<span id='standingc-range'></span></label></div>
-		<div class='wf_rangeWrap'>
-				<div class='wf_lineWrap1'>Population Range: <span id='pop-range'> (>50,000 - 5,000,000 +)</span> </div>
-				<div class='wf_leftSlider'>>50,000</div>
-				<div id='population-slider' class='wf_rslide wf_slider'></div>
-				<div class='wf_rightSlider'>5 Mil +</div>
+	<div  class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by Population (in thousands)<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
+	
+	<div class='multiShoreCheck lineWrapCenter' id='multiShoreCheck'>
+		<div id='ch-popCheck' class='ch-popCheck'>
+			<div class='popCbWrap'><input type='checkbox' id='ch-1850s' class='popCb' value='less than 50,000'><label class='popCbLabel'>less than 50,000</label></div>
+			<div class='popCbWrap'><input type='checkbox' id='ch-1910s' class='popCb' value='50,000 - 100,000'><label class='popCbLabel'>50,000 - 100,000</label></div>
+			<div class='popCbWrap'><input type='checkbox' id='ch-1940s' class='popCb' value='100,000 - 500,000'><label class='popCbLabel'>100,000 - 500,000</label></div>
+			<div class='popCbWrap'><input type='checkbox' id='ch-1962' class='popCb' value='500,000 - 1,000,000'><label class='popCbLabel'>500,000 - 1,000,000</label></div>
+			<div class='popCbWrap'><input type='checkbox' id='ch-1970s' class='popCb' value='1,000,000 - 5,000,000'><label class='popCbLabel'>1,000,000 - 5,000,000</label></div>
+			<div class='popCbWrap'><input type='checkbox' id='ch-1985-6' class='popCb' value='more than 5,000,000'><label class='popCbLabel'>more than 5,000,000</label></div>
 		</div>
 	</div>
-	<!-- Number of partner wrapper -->
+	
+	<!-- Partner filter wrapper -->
+	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by number of partners<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
 	<div class='wf_partWrap'>
-		<div  style='width:240px;' class='wf_partCheckBox'><input type='checkbox' class='be_pointer' value='population'><label class='wf_cbLabel'>Filter funds by number of partners<span id='standingc-range'></span></label></div>
 		<div class='wf_rangeWrap'>
 			<div class='wf_lineWrap1'>Number of partners:<span id='part-range'> (0)</span> </div>
 			<div class='wf_leftSlider1'>0</div>
 			<div id='partner-slider' class='wf_rslide wf_slider'></div>
-			<div class='wf_rightSlider'>100+</div>
+			<div class='wf_rightSlider'>60</div>
 		</div>
 	</div>
+	
 	<!-- Filter by activity wrapper -->
-	<div class='wf_activityWrap'>
-		<div style='width:190px;' class='wf_activityCheckBox'><input type='checkbox' class='be_pointer' value='activity'><label class='wf_cbLabel'>Filter funds by activities<span id='standingc-range'></span></label></div>
-		<div class='wf_selectWrapper wf_activityWrapper'>
-			<select id='ch-activity' data-placeholder="Choose an activity" multiple class="chosen-islands" tabindex="16">
-				<option value=""></option>
-				<option value="Targeted land protection">Targeted land protection</option>
-				<option value="Revegetation">Revegetation</option>
-				<option value="Riparian restoration">Riparian restoration</option>
-				<option value="Agricultural best management practices (BMPs)">Agricultural best management practices</option>
-				<option value="Ranching best management practices (BMPs)">Ranching best management practices</option>
-				<option value="Fire risk management">Fire risk management</option>
-				<option value="Wetland restoration and creation">Wetland restoration and creation</option>
-				<option value="Road management">Road management</option>
-			</select>
-		</div>
+	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by activities<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
+	<div class='wf_selectWrapper wf_activityWrapper'>
+		<select id='ch-activity' data-placeholder="Choose an activity" multiple class="chosen-islands" tabindex="16">
+			<option value=""></option>
+			<option value="LandProtection">Targeted land protection</option>
+			<option value="Revegetation">Revegetation</option>
+			<option value="RiparianRestoration">Riparian restoration</option>
+			<option value="AgriculturalBMPs">Agricultural best management practices</option>
+			<option value="RanchingBMPs">Ranching best management practices</option>
+			<option value="FireRiskManagement">Fire risk management</option>
+			<option value="WetlandRestoration_Creation">Wetland restoration and creation</option>
+			<option value="Road_management">Road management</option>
+		</select>
 	</div>
+	
 	<!-- Filter by benefits wrapper -->
-	<div class='wf_benefitsWrap'>
-		<div style='width:190px;' class='wf_benefitCheckBox'><input type='checkbox' class='be_pointer' value='benefits'><label class='wf_cbLabel'>Filter funds by benefits<span id='standingc-range'></span></label></div>
-		<div class='wf_selectWrapper wf_benefitWrapper'>
-			<select id='ch-benefits' data-placeholder="Choose a benefit" multiple class="chosen-islands" tabindex="16">
-				<option value=""></option>
-				<option value="Water security">Water security</option>
-				<option value="Climate change mitigation">Climate change mitigation</option>
-				<option value="Climate change adaptation">Climate change adaptation</option>
-				<option value="Human health and well-being">Human health and well-being</option>
-				<option value="Biodiversity conservation">Biodiversity conservation</option>
-			</select>
-		</div>
+	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by benefits<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
+	<div class='wf_selectWrapper wf_benefitWrapper'>
+		<select id='ch-benefits' data-placeholder="Choose a benefit" multiple class="chosen-islands" tabindex="16">
+			<option value=""></option>
+			<option value="WaterQuality">Water Quality</option>
+			<option value="WaterQuantity">Water Quantity</option>
+			<option value="Biodiversity">Biodiversity</option>
+			<option value="ClimateChange">Climate Change</option>
+			<option value="Social">Social</option>
+		</select>
 	</div>
 </div>
 
 <!-- Create thematic line and attribute area for click on water fund -->
-<hr class='hrStyle'>
-<div class='wf_largeHeader wf_hs'> <span class='wf_headerHSBig'>&#xBB;</span>Click on the map to select a water fund:</div>
+<hr class='wf_hrStyle'>
+<div id='wf_largeHeader' class='wf_largeHeader wf_hs'>View water fund attributes</div>
 
 <div id='wf_attributeWrap' class='wf_attributeWrap'>
-	<div class='wf_imagePlace'>Image Placeholder</div>
+	<div id='content' class='wf_imagePlace'>Image Placeholder</div>
 	<div id='wf_attName' class='wf_attribute'></div>
 	<div id='wf_attYear' class='wf_attribute'></div>
 	<div id='wf_attPop' class='wf_attribute'></div>

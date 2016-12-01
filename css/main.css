@@ -33,9 +33,38 @@ body.waiting * {
 .wf_rslide{
 	width:200px; display:inline-block; margin-bottom:2px;
 }
-.wf_largeHeader{
-	font-size:14pt; margin-bottom:5px;
+.wf_lineHeader{
+	font-size:12pt; text-decoration:underline; text-align:left; margin:5px 4px 5px 5px; 
 }
+hr.wf_hrStyle {
+    border: 0; height: 1px; background-image: linear-gradient(to right, #ccc, #29658C, #ccc); margin: 6px 0 6px;
+}
+
+
+
+.popCbLabel{
+	display:inline-block;
+}
+.popCbWrap{
+	font-size:12pt; text-align:left; 
+}
+.ch-popCheck{
+	width:80%; columns:2; margin:auto; margin-top:10px; 
+}
+.popCb{
+	cursor:pointer;
+}	
+
+
+
+
+.wf_headerHS{
+	color:#5E94B6; cursor:pointer; -webkit-transform:rotate(90deg); transform:rotate(90deg); display:inline-block; font-size:17pt; 
+	display:none; vertical-align:middle;
+}
+.wf_minfo{
+	margin-bottom:-2px; margin-left:3px; cursor:pointer;
+}	
 .wf_lineWrap{
 	margin-top:10px; margin-left:10px; font-size:12pt; margin-bottom: 10px; font-weight:bold;
 }
@@ -68,13 +97,16 @@ body.waiting * {
 	margin-left:18px; display:inline-block;
 }
 .wf_activityWrapper{
-	display:none;
+	
 }
 .wf_benefitWrapper{
-	display:none;
+	
+}
+.wf_largeHeader{
+	font-size:14pt; margin:10px 0px; cursor:pointer; font-weight:bold;
 }
 .wf_rangeWrap{
-	   margin-bottom: 16px; margin-left:27px; display:none;
+	   margin-bottom: 16px; margin-left:27px;
 }
 .wf_popSlideWrap{
 	margin-bottom: 16px; margin-left:20px;
@@ -82,9 +114,9 @@ body.waiting * {
 .wf_cbLabel{
 	display: inline-block; margin-left: -2px; font-size: 12pt; padding: 2px; vertical-align: middle; text-align: left; color: #000; font-weight:bold;
 }
-.wf_headerHS {
+/* .wf_headerHS {
     color: blue; cursor: pointer; -webkit-transform: rotate(90deg); transform: rotate(90deg); display: inline-block; font-size: 17pt; vertical-align: middle;
-}
+} */
 .wf_cbListener{
 	margin-left:4px;
 }
