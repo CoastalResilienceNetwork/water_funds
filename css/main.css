@@ -34,7 +34,13 @@ body.waiting * {
 	width:200px; display:inline-block; margin-bottom:2px;
 }
 .wf_lineHeader{
-	font-size:12pt; text-decoration:underline; text-align:left; margin:5px 4px 5px 5px; 
+	font-size:12pt; text-decoration:underline; text-align:left; margin: 5px 5px 6px 2px; display:inline-block;
+}
+.wf_zoomToText{
+	font-size:12pt; color:blue; cursor:pointer; 
+}	
+.wf_zoomToText:hover{
+    color:#21658c;
 }
 hr.wf_hrStyle {
     border: 0; height: 1px; background-image: linear-gradient(to right, #ccc, #29658C, #ccc); margin: 6px 0 6px;
@@ -42,22 +48,22 @@ hr.wf_hrStyle {
 
 
 
-.popCbLabel{
-	display:inline-block;
+.wf_popCbWrap{
+	font-size:14pt; text-align:left; display:inline-block; cursor:pointer;
 }
-.popCbWrap{
-	font-size:12pt; text-align:left; 
+.wf_cbLabel{
+	float:left; margin-left:2px; font-size:12pt; padding:2px; vertical-align:middle; text-align:left; color:#000; padding-left:19px; text-indent:-19px; 
+	width:150px; cursor:pointer; margin-right:10px;
 }
-.ch-popCheck{
-	width:80%; columns:2; margin:auto; margin-top:10px; 
-}
-.popCb{
-	cursor:pointer;
+.wf_lineHeader3{
+	font-size:12pt; text-align:center; margin-top:5px; margin-bottom:10px;	
 }	
 
 
 
-
+.wf_controlsWrap{
+	margin-left:5px; margin-bottom:14px;	
+}	
 .wf_headerHS{
 	color:#5E94B6; cursor:pointer; -webkit-transform:rotate(90deg); transform:rotate(90deg); display:inline-block; font-size:17pt; 
 	display:none; vertical-align:middle;
@@ -69,7 +75,7 @@ hr.wf_hrStyle {
 	margin-top:10px; margin-left:10px; font-size:12pt; margin-bottom: 10px; font-weight:bold;
 }
 .wf_lineWrap1{
-	 margin-left: -5px; font-size: 12pt; margin-bottom: 8px;
+	 font-size:12pt; text-align:left;
 }
 .wf_lineWrapCenter{
 	width:100%; text-align:center; margin-top:10px; margin-bottom:20px;
@@ -78,7 +84,7 @@ hr.wf_hrStyle {
 	width:100%; text-align:center; margin-top:-5px; margin-bottom:-5px;
 }
 .wf_slider{
-	width: 220px; margin-left:0px; margin-top:10px; margin-bottom:0px;
+	width: 220px; margin-left:0px; margin-top: 12px; margin-bottom: 3px;
 }
 .wf_slider label{
 	position: absolute; width: 50px; margin-left: -26px; text-align: left; margin-top: 30px; transform: rotate(90deg);
@@ -93,33 +99,25 @@ hr.wf_hrStyle {
 .wf_rightSlider {
     display: inline-block;margin-left: 5px;font-size: 11pt;
 }
-.wf_selectWrapper{
-	margin-left:18px; display:inline-block;
-}
-.wf_activityWrapper{
-	
-}
-.wf_benefitWrapper{
-	
-}
+
+
+
 .wf_largeHeader{
 	font-size:14pt; margin:10px 0px; cursor:pointer; font-weight:bold;
 }
-.wf_rangeWrap{
-	   margin-bottom: 16px; margin-left:27px;
-}
+
 .wf_popSlideWrap{
 	margin-bottom: 16px; margin-left:20px;
 }
-.wf_cbLabel{
-	display: inline-block; margin-left: -2px; font-size: 12pt; padding: 2px; vertical-align: middle; text-align: left; color: #000; font-weight:bold;
+.wf_hide{
+	display:none;
 }
 /* .wf_headerHS {
     color: blue; cursor: pointer; -webkit-transform: rotate(90deg); transform: rotate(90deg); display: inline-block; font-size: 17pt; vertical-align: middle;
 } */
-.wf_cbListener{
-	margin-left:4px;
-}
+.wf_sectionWrap{
+	margin-bottom:10px;	
+}	
 .wf_pdfLink{
 	font-size:12pt; color:blue; cursor:pointer;	
 }	
@@ -133,13 +131,14 @@ hr.wf_hrStyle {
 	display:none;
 }
 .wf_attribute{
-	font-weight:500; font-size:11pt; padding:2.5px;
+	font-weight:500; font-size:12pt; padding-bottom:10px; padding-left:10px; text-indent:-10px; margin-left:5px;
 }
 .wf_attribute span{
-	font-weight:bold; font-size:11pt; padding:2.5px;
+	font-weight:bold;
 }
 .wf_imagePlace{
-	width: 250px; height:150px; text-align:center; margin:auto; margin-top:10px; margin-bottom:10px; border-style:solid; border-color:blue; font-size:16pt;
+	width: 250px; height:150px; text-align:center; margin:auto; margin-top:10px; margin-bottom:10px; border-style:solid; 
+	border-color:blue; font-size:16pt; display:none;
 }
 .wf_headerHSBig{
 	color:#5E94B6; cursor:pointer; -webkit-transform:rotate(90deg); transform:rotate(90deg); 

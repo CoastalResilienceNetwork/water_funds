@@ -12,7 +12,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Water Funds Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
-		hasCustomPrint: true, usePrintPreviewMap: true, previewMapSize: [1000, 550], height:"560", width:"400",
+		hasCustomPrint: true, usePrintPreviewMap: true, previewMapSize: [1000, 550], height:"550", width:"390",
 		
 		// First function called when the user clicks the pluging icon. 
 		initialize: function (frameworkParameters) {
@@ -22,11 +22,11 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			this.con = dom.byId('plugins/water_funds-0');
 			this.con1 = dom.byId('plugins/water_funds-1');
 			if (this.con1 != undefined){
-				domStyle.set(this.con1, "width", "400px");
-				domStyle.set(this.con1, "height", "560px");
+				domStyle.set(this.con1, "width", "390px");
+				domStyle.set(this.con1, "height", "550px");
 			}else{
-				domStyle.set(this.con, "width", "400px");
-				domStyle.set(this.con, "height", "560px");
+				domStyle.set(this.con, "width", "390px");
+				domStyle.set(this.con, "height", "550px");
 			}	
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
@@ -105,7 +105,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			this.clicks = new clicks();
 			// ADD HTML TO APP
 			// Define Content Pane as HTML parent		
-			this.appDiv = new ContentPane({style:'padding:8px 8px 8px 8px; position:relative;'});
+			this.appDiv = new ContentPane({style:'padding:0px 8px 8px 8px; position:relative;'});
 			this.id = this.appDiv.id
 			dom.byId(this.container).appendChild(this.appDiv.domNode);					
 			// Get html from content.html, prepend appDiv.id to html element id's, and add to appDiv

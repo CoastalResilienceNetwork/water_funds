@@ -6,49 +6,30 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 
         return declare(null, {
 			clickListener: function(t){
-				// work with attachments testing area
-				t.testFeatureLayer =  new FeatureLayer(t.url + "/0",{mode: FeatureLayer.MODE_ONDEMAND, outFields: ["*"] });
-	//t.waterFundPoly = new FeatureLayer(t.url + "/3", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });			
-				t.map.addLayer(t.testFeatureLayer);
-				
-				
-				//t.map.infoWindow.setContent("<div id="+ '#' + t.id + 'content' + " style='width:100%'></div>");
-				//t.map.infoWindow.resize(350,200);
-				var attachmentEditor = new AttachmentEditor({}, '#' + t.id + 'content');
-				attachmentEditor.startup();
-				t.testFeatureLayer.on('click', lang.hitch(t,function(evt){
-					console.log('test click')
-					var objectId = evt.graphic.attributes[t.testFeatureLayer.objectIdField];
-					console.log(objectId);
-					attachmentEditor.showAttachments(evt.graphic,t.testFeatureLayer);
-				}));
-				
-				
 				// toggle filter and attribute areas.
 				$('#' + t.id + ' .wf_hs').on('click',lang.hitch(this,function(c){
-					if ($(c.currentTarget).next().is(":visible")){
-						//$(c.currentTarget).children().html("&#xBB;");	
-					}else{
-						//$(c.currentTarget).children().html("&#xAB;");
-					}	
-					$(c.currentTarget).next().slideToggle()
+					if ( $(c.currentTarget).next().is(":hidden") ){
+						$('#' + t.id + ' .wf_sectionWrap').slideUp();
+						$(c.currentTarget).next().slideDown();
+					}
 				}));
 // WORK WITH CHECKBOX'S//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// population checkbox
 				t.populationArray = []
-				$('#' + t.id + 'wf_cbListener .popCbWrap').on('click',lang.hitch(t,function(c){
-					var val = c.target.value;
-					console.log(val);
-					
-					
-					// if they click a label toggle the checkbox
+				$('#' + t.id + ' .wf_popCbWrap').on('click',lang.hitch(t,function(c){
+					var val = "";
+					// if they click a label to toggle the checkbox
 					if (c.target.checked == undefined){
-						$(c.currentTarget.children[0]).prop("checked", !$(c.currentTarget.children[0]).prop("checked") )	
+						$(c.currentTarget.children[0].children[0]).prop("checked", !$(c.currentTarget.children[0].children[0]).prop("checked") )	
+						val = $(c.currentTarget.children[0].children[0]).val()
 					}
-					if ($(c.currentTarget.children[0]).prop('checked') === true){
+					// they clicked on the checkbox
+					else{
+						val = c.target.value;
+					}
+					if ($(c.currentTarget.children[0].children[0]).prop('checked') === true){
 						t.populationArray.push(val);
 					}else{
-						console.log(val);
 						var index = t.populationArray.indexOf(val);
 						if (index > -1) {
 							t.populationArray.splice(index, 1);
@@ -61,120 +42,15 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 					$.each(t.populationArray, lang.hitch(t,function(i,v){
 						if(v.length > 0){
 							if(t.popExp.length == 0){
-								t.popExp = "(PopSize = '" + v +"')";
+								t.popExp = v + " = " + 1 ;
 								cnt = 1;
 							}else{
-								t.popExp = t.popExp + " AND " + "(PopSize = '" + v +"')";
-								cnt+=1;
+								t.popExp = t.popExp + " OR " + v + " = " + 1;
 							}
 						}
 					}));
-					console.log(t.popExp);
 					t.clicks.filterChange(t);
 				}));
-				
-				
-				// t.activityArray = []
-				// $('#' + t.id + 'ch-activity').chosen().change(lang.hitch(t,function(c, p){
-					// if (p.selected != undefined){
-						// t.activityArray.push(p.selected)
-					// }
-					// if (p.deselected != undefined){
-						// var index = t.activityArray.indexOf(p.deselected);
-						// if (index > -1) {
-							// t.activityArray.splice(index, 1);
-						// }
-					// }
-				
-				// t.actExpArray = [];
-				// t.actExp = '';
-				// var cnt = 0;
-				// $.each(t.activityArray, lang.hitch(t,function(i,v){
-					// if(v.length > 0){
-						// if(t.actExp.length == 0){
-							// t.actExp = "("+v + " = " + 1+")";
-							// cnt = 1;
-						// }else{
-							// t.actExp = t.actExp + " AND " + "("+v+ " = " + 1+")";
-							// cnt+=1;
-						// }
-					// }
-				// }));
-				
-				
-				
-				// partner checkbox
-				// $('#' + t.id + 'wf_cbListener .wf_partCheckBox').on('click',lang.hitch(this,function(c){
-					// var val = c.target.value;
-					////if they click a label toggle the checkbox
-					// if (c.target.checked == undefined){
-						// $(c.currentTarget.children[0]).prop("checked", !$(c.currentTarget.children[0]).prop("checked") )	
-					// }
-					// if ($(c.currentTarget.children[0]).prop('checked') === true){
-						// $(c.currentTarget).parent().find('.wf_rangeWrap').slideDown();
-						// var values = $('#' + t.id + val).slider("option", "values");
-						// $('#' + t.id + val).slider('values', values); 
-					// }else{
-						// $(c.currentTarget).parent().find('.wf_rangeWrap').slideUp();
-					// }	
-				// }));
-				// activity checkbox
-				/* $('#' + t.id + 'wf_cbListener .wf_activityCheckBox').on('click',lang.hitch(this,function(c){
-					var val = c.target.value;
-					// if they click a label toggle the checkbox
-					if (c.target.checked == undefined){
-						$(c.currentTarget.children[0]).prop("checked", !$(c.currentTarget.children[0]).prop("checked") )	
-					}
-					if ($(c.currentTarget.children[0]).prop('checked') === true){
-						$(c.currentTarget).parent().find('.wf_activityWrapper').slideDown();
-						var values = $('#' + t.id + val).slider("option", "values");
-						$('#' + t.id + val).slider('values', values); 
-					}else{
-						$(c.currentTarget).parent().find('.wf_activityWrapper').slideUp();
-					}	
-				})); */
-				// benefits checkbox
-				/* $('#' + t.id + 'wf_cbListener .wf_benefitCheckBox').on('click',lang.hitch(this,function(c){
-					var val = c.target.value;
-					// if they click a label toggle the checkbox
-					if (c.target.checked == undefined){
-						$(c.currentTarget.children[0]).prop("checked", !$(c.currentTarget.children[0]).prop("checked") )	
-					}
-					if ($(c.currentTarget.children[0]).prop('checked') === true){
-						$(c.currentTarget).parent().find('.wf_benefitWrapper').slideDown();
-						var values = $('#' + t.id + val).slider("option", "values");
-						$('#' + t.id + val).slider('values', values); 
-					}else{
-						$(c.currentTarget).parent().find('.wf_benefitWrapper').slideUp();
-					}	
-				})); */
-				
-				/* $('#' + t.id + 'hover1').on('mouseover',lang.hitch(this,function(c){
-					$('#' + t.id + 'hover2').slideDown();
-				}));
-				 */
-				// Create range sliders and handlers
-				// $( '#' + t.id + 'population-slider' ).slider({
-					// range: true, min: 0, max: 6, values: [0,  6 ], step: 1,
-					// slide: function( event, ui ) {
-						// t.ui1 = ui.values[0]
-						// t.ui2 = ui.values[1]
-						// t.clicks.populationSliderPopulate(t.ui1, t.ui2,t);
-					// }
-				// });
-// WORK WITH SLIDER BARS ////////////////////////////////////////////////////////////////////////////////////////////////////
-				// $( '#' + t.id + 'population-slider' ).slider({
-					// range: true, min: 0, max: 6, values: [0,  6 ], step: 1,
-					// change: function( event, ui ) {
-						
-						// t.ui1 = ui.values[0]
-						// t.ui2 = ui.values[1]
-						// t.clicks.populationSliderPopulate(t.ui1, t.ui2,t);
-						// t.clicks.filterChange(t);
-					// }
-				// });
-				
-				
 				// work with the partner slider
 				$( '#' + t.id + 'partner-slider' ).slider({
 					min: 0, max: 60,
@@ -186,7 +62,6 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 							var partVal = 'All Values';
 						}else{
 							var partVal = ui.value.toString() + " or less";
-							console.log(ui.value)
 							t.partVal =  "(Partners >= " + "'" + ui.value.toString() + "'" + ")";
 						}
 						$('#' + t.id + 'part-range').html("(" + partVal + ")");
@@ -196,7 +71,7 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 				
 // Work with Multi select dropdowns///////////////////////////////////////////////////////////////				
 				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(this,function($) {
-					var configCrs =  { '.chosen-islands' : {allow_single_deselect:true, width:"275px", disable_search:true}}
+					var configCrs =  { '.chosen-islands' : {allow_single_deselect:true, width:"310px", disable_search:true}}
 					for (var selector in configCrs)  { $(selector).chosen(configCrs[selector]); }
 				}));
 				// User selections on chosen menus for activities
@@ -219,10 +94,10 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						$.each(t.activityArray, lang.hitch(t,function(i,v){
 							if(v.length > 0){
 								if(t.actExp.length == 0){
-									t.actExp = "("+v + " = " + 1+")";
+									t.actExp = v + " = " + 1;
 									cnt = 1;
 								}else{
-									t.actExp = t.actExp + " AND " + "("+v+ " = " + 1+")";
+									t.actExp = t.actExp + " AND " + v + " = " + 1;
 									cnt+=1;
 								}
 							}
@@ -250,10 +125,10 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						$.each(t.benefitArray, lang.hitch(t,function(i,v){
 							if(v.length > 0){
 								if(t.benExp.length == 0){
-									t.benExp = "("+v + " = " + 1+")";
+									t.benExp = v + " = " + 1;
 									cnt = 1;
 								}else{
-									t.benExp = t.benExp + " AND " + "("+v+ " = " + 1+")";
+									t.benExp = t.benExp + " AND " + v + " = " + 1;
 									cnt+=1;
 								}
 							}
@@ -262,49 +137,54 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						t.clicks.filterChange(t);
 					}));
 				}));
+				// Zoom to water fund click
+				$('#' + t.id + 'zoomToFund').on('click',lang.hitch(t,function(){
+					t.zoomTo =  'yes';	
+					var q = new Query();
+					q.where = "WF_Name = '" + t.atts.WF_Name + "'"
+					t.waterFundPoly.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW)
+				}));	
 			},
 // UPDATE FILTER EXPRESION ///////////////////////////////////////////////////////////////////////////////////////////////////
 			filterChange: function(t){
 				// make a list of the various expresions.
 				t.expList = [t.popExp, t.partVal, t.actExp, t.benExp];
-				t.exp = '';
-				t.cnt = 0;
+				t.exp = "";
 				$.each(t.expList, lang.hitch(t, function(i,v){
 					if(v.length > 0){
 						if(t.exp.length == 0){
-							t.exp = v;
-							t.cnt = 1;
+							t.exp = "(" + v + ")";
 						}else{
-							t.exp = t.exp + " AND " + v;
-							t.cnt+=1;
+							t.exp = t.exp + " AND (" + v + ")";
 						}
 					}
 				}));
-				
 				if (t.exp.length == 0){
+					t.exp = "OBJECTID < 0";
 					if (t.mapScale > 8000000 ){
 						t.obj.visibleLayers = [1];
-						t.map.addLayer(t.waterFundPoint);
 					}else{
 						t.obj.visibleLayers = [3];
-						t.map.addLayer(t.waterFundPoly);
 					}
-					
 				}else{
 					if (t.mapScale > 8000000 ){
 						t.obj.visibleLayers = [0,1];
-						t.map.addLayer(t.waterFundPoint);
 					}else{
 						t.obj.visibleLayers = [2,3];
-						t.map.addLayer(t.waterFundPoint);
 					}
 				}
+				console.log(t.exp)
 				var layerDefinitions = [];
-				console.log(t.exp);
 				layerDefinitions[0] = t.exp;
 				layerDefinitions[2] = t.exp;
 				t.dynamicLayer.setLayerDefinitions(layerDefinitions);
-				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);		
+				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				var query = new Query();
+				var queryTask = new QueryTask(t.url + '/0');
+				query.where = t.exp;
+				queryTask.executeForCount(query,function(count){
+					$('#' + t.id + 'fundCnt').html(count); 
+				});				
 			},
         });
     }
