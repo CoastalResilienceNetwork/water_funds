@@ -107,11 +107,11 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						}	
 						$('#' + v.id).html(val)
 					}));
-					if (t.atts.imgName.length == 0){
-						$('#' + t.id + 'wf_imagePlace').hide()
-					}else{		
-						$('#' + t.id + 'wf_imagePlace').show()
+					
+					$('#' + t.id + 'wf_imagePlace').slideUp()
+					if (t.atts.imgName.length > 0){		
 						$('#' + t.id + 'wfPic').attr("src","plugins/water_funds/images/" + t.atts.imgName);
+						$('#' + t.id + 'wf_imagePlace').slideDown()
 					}
 					// slide down attribute wrapper
 					$('#' + t.id + 'idenHeader').hide();
