@@ -52,23 +52,44 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 					t.clicks.filterChange(t);
 				}));
 				// work with the partner slider
-				$( '#' + t.id + 'partner-slider' ).slider({
-					min: 0, max: 60,
+				$( '#' + t.id + 'PartnersNumSlider' ).slider({
+					range:true, min: 0, max: 60, values:[0,60],
 					change: function( event, ui ) {
-						if (ui.value == 60){
-							var partVal = '60 or less'
-							t.partVal = "(Partners = '60')";
-						}else if(ui.value == 0){
-							var partVal = 'All Values';
-						}else{
-							var partVal = ui.value.toString() + " or less";
-							t.partVal =  "(Partners >= " + "'" + ui.value.toString() + "'" + ")";
-						}
-						$('#' + t.id + 'part-range').html("(" + partVal + ")");
+						var ben = "PartnersNum"
+						t[ben] = ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1];	
 						t.clicks.filterChange(t);
+						var low = ui.values[0];
+						var high = ui.values[1];
+						if (low == high){						
+							$('#' + t.id + ben + '-range').html(low);
+						}else{
+							$('#' + t.id + ben + '-range').html(low + " - " + high);
+						}
 					}
 				});
-				
+				// hide and show slider
+				$('#' + t.id + ' .wf_sliderCb').on('click',lang.hitch(t,function(c){
+					var ben = "";
+					// if they click a label to toggle the checkbox
+					if (c.target.checked == undefined){
+						$(c.currentTarget.children[0].children[0]).prop("checked", !$(c.currentTarget.children[0].children[0]).prop("checked") )	
+						ben = $(c.currentTarget.children[0].children[0]).val()
+					}
+					// they clicked on the checkbox
+					else{
+						ben = c.target.value;
+					}
+					if ($(c.currentTarget.children[0].children[0]).prop('checked') === true){
+						$(c.currentTarget).parent().find('.wf_rangeWrap').slideDown();
+						var values = $('#' + t.id + ben + 'Slider').slider("option", "values");
+						$('#' + t.id + ben + 'Slider').slider('values', values); 
+					}else{
+						$(c.currentTarget).parent().find('.wf_rangeWrap').slideUp();
+						t[ben] = "";
+						t.clicks.filterChange(t);
+						$('#' + t.id + ben + '-range').html("")
+					}
+				}));	
 // Work with Multi select dropdowns///////////////////////////////////////////////////////////////				
 				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(this,function($) {
 					var configCrs =  { '.chosen-islands' : {allow_single_deselect:true, width:"310px", disable_search:true}}
@@ -148,7 +169,7 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 // UPDATE FILTER EXPRESION ///////////////////////////////////////////////////////////////////////////////////////////////////
 			filterChange: function(t){
 				// make a list of the various expresions.
-				t.expList = [t.popExp, t.partVal, t.actExp, t.benExp];
+				t.expList = [t.popExp, t.PartnersNum, t.actExp, t.benExp];
 				t.exp = "";
 				$.each(t.expList, lang.hitch(t, function(i,v){
 					if(v.length > 0){

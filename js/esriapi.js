@@ -10,7 +10,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 			esriApiFunctions: function(t){	
 				// Start with empty expressions
 				t.popExp = '';
-				t.partVal = '';
+				t.PartnersNum = '';
 				t.actExp = '';
 				t.benExp = '';
 				// zoom to tracker
