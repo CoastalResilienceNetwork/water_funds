@@ -84,6 +84,9 @@ hr.wf_hrStyle {
 .wf_largeHeader{
 	font-size:14pt; margin:10px 0px; cursor:pointer; font-weight:bold;
 }
+.wf_largeHeader:hover{
+	text-shadow: 1px 1px #cdcdcd;
+}
 .wf_hide{
 	display:none;
 }
@@ -94,10 +97,13 @@ hr.wf_hrStyle {
 	display:none;
 }
 .wf_attribute{
-	font-weight:500; font-size:12pt; padding-bottom:6px; padding-left:5px; text-indent:-10px; margin-left:5px;
+	text-decoration:underline; 
 }
+.wf_attLine{
+	font-size:12pt; padding-bottom:6px; padding-left:5px; text-indent:-10px; margin-left:5px;	
+}	
 .wf_attSpan{
-	font-weight:bold;
+	text-decoration:none;
 }
 .wf_imagePlace{
 	text-align:center; margin:auto; margin-top:-2px; margin-bottom:6px; font-size:16pt; 

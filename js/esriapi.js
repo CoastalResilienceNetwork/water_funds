@@ -16,7 +16,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				// zoom to tracker
 				t.zoomTo = 'no'
 				// Add dynamic map service
-				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url);
+				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
 				t.map.addLayer(t.dynamicLayer);
 				t.dynamicLayer.on("load", lang.hitch(t, function () { 			
 					if (t.obj.visibleLayers.length > 0){	
