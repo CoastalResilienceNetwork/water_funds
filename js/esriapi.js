@@ -13,8 +13,8 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.partVal = '';
 				t.actExp = '';
 				t.benExp = '';
-				
-				
+				// zoom to tracker
+				t.zoomTo = 'no'
 				// Add dynamic map service
 				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url);
 				t.map.addLayer(t.dynamicLayer);
@@ -26,16 +26,13 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					t.clicks.filterChange(t);
 					t.map.setMapCursor("pointer");
 				}));
-				
 				// water fund point symbology
 				var sym = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 20,
 						new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
 						new Color([0,0,255]), 2),
 						new Color([206,200,58,0]));
-						
 				var polySym = new SimpleFillSymbol( SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
 					SimpleLineSymbol.STYLE_SOLID, new Color([0,0,255]), 2 ), new Color([0,0,0,0.1]));
-					
 				// create water fund point feature layer
 				t.waterFundPoint = new FeatureLayer(t.url + "/1", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
 				t.waterFundPoint.setSelectionSymbol(sym);
@@ -44,35 +41,19 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.waterFundPoly = new FeatureLayer(t.url + "/3", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
 				t.waterFundPoly.setSelectionSymbol(polySym);
 				t.map.addLayer(t.waterFundPoly);
-				
-				// toggle filter and attribute section 
-				
-				
 				// on water fund selection complete
 				t.waterFundPoint.on('selection-complete', lang.hitch(t,function(evt){
-					if(evt.features[0] != undefined){
-						t.esriapi.waterFundAttributeBuilder(evt,t);
-						// slide down attribute wrapper
-						$('#' + t.id + 'idenHeader').html('Selected Water Fund Attributes')
-						$('#' + t.id + 'wf_attributeWrap').slideDown();
-						$('#' + t.id + 'wf_largeHeader').trigger('click');
-					}else{
-						$('#' + t.id + 'wf_attributeWrap').slideUp();
-						$('#' + t.id + 'idenHeader').html('Click map to select a Water Fund')
-					}
+					t.esriapi.waterFundAttributeBuilder(evt,t);
 				}));
 				// on water fund selection complete
 				t.waterFundPoly.on('selection-complete', lang.hitch(t,function(evt){
-					if(evt.features[0] != undefined){
+					if (t.zoomTo == 'yes'){
+						var fExt = evt.features[0].geometry.getExtent().expand(1.5);	
+						t.map.setExtent(fExt, true);
+						t.zoomTo = 'no';
+					}else{	
 						t.esriapi.waterFundAttributeBuilder(evt,t);
-						// slide down attribute wrapper
-						$('#' + t.id + 'idenHeader').html('Selected Water Fund Attributes')
-						$('#' + t.id + 'wf_attributeWrap').slideDown();
-						$('#' + t.id + 'wf_largeHeader').trigger('click');
-					}else{
-						$('#' + t.id + 'wf_attributeWrap').slideUp();
-						$('#' + t.id + 'idenHeader').html('Click map to select a Water Fund')
-					}
+					}	
 				}));
 				
 				// call the filter function to update the vis layers when on zoom. 
@@ -108,143 +89,39 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 			},
 			// build the attribute table for the water fund click
 			waterFundAttributeBuilder: function(evt,t){
-				evt = evt.features[0];
-				// water fund name
-				var fundName = evt.attributes.WF_Name;
-				var content = "Water Fund Name: <span>" + fundName +"</span>"
-				$('#' + t.id + 'wf_attName').html(content)
-
-				// water fund year
-				var fundYear = evt.attributes.OperationalYear;
-				var content = "Year it became operational: <span>" + fundYear +"</span>"
-				$('#' + t.id + 'wf_attYear').html(content)
-
-				// water fund population
-				var fundPop = evt.attributes.PopSize;
-				var content = "Downstream population size: <span>" + fundPop +"</span>"
-				$('#' + t.id + 'wf_attPop').html(content)
-
-				// water fund sources
-				var fundSource = evt.attributes.SourceWatersheds;
-				var content = "Funding Source(s): <span>" + fundSource +"</span>"
-				$('#' + t.id + 'wf_attSource').html(content)
-
-				// water fund partners
-				var fundPart = evt.attributes.Partners;
-				var content = "Number of Partners: <span>" + fundPart +"</span>"
-				$('#' + t.id + 'wf_attPart').html(content)
-
-				// water fund area
-				var fundArea = evt.attributes.Area_Actual;
-				if(fundArea == '-99'){
-					fundArea = "N/A";
-				}
-				var content = "Area impacted (hectares): <span>" + fundArea +"</span>"
-				$('#' + t.id + 'wf_attArea').html(content)
-				
-				// area below used for populating benefits and activities 
-				// water fund area
-				t.esriapi.actBenPopulate(t, evt); // call the function to populate the activities and benefits list.
-				
-				var content = "Activities: <span>" + t.fundActivity +"</span>"
-				$('#' + t.id + 'wf_attActivity').html(content)
-				// water fund area
-				var fundBenefit = 'Waiting for the new data, logic is ready'
-				
-				var content = "Benefits: <span>" + fundBenefit +"</span>"
-				$('#' + t.id + 'wf_attBenefits').html(content)
-				
-				
+				if(evt.features[0] != undefined){
+					t.atts = evt.features[0].attributes;
+					$('#' + t.id + 'wf_attributeWrap span').each(lang.hitch(t,function(i,v){
+						var field = v.id.split("-").pop();
+						var val = t.atts[field];
+						if ( isNaN(val) == false ){
+							if (field != 'OperationalYear'){
+								if (val == -99){
+									val = "No Data"
+								}else{	
+									val = Math.round(val);
+									val = t.esriapi.commaSeparateNumber(val);
+								}	
+							}	
+						}	
+						$('#' + v.id).html(val)
+					}));
+					// slide down attribute wrapper
+					$('#' + t.id + 'idenHeader').html('Selected Water Fund Attributes: ');
+					$('#' + t.id + 'zoomToFund').html('Zoom to Water Fund');
+					$('#' + t.id + 'wf_attributeWrap').slideDown();
+					$('#' + t.id + 'wf_largeHeader').trigger('click');
+				}else{
+					$('#' + t.id + 'wf_attributeWrap').slideUp();
+					$('#' + t.id + 'idenHeader').html('Click map to select a Water Fund')
+					$('#' + t.id + 'zoomToFund').html('');
+				}	
 			},
-// Activities Benefits Populate function ////////////////////////////////////////////////////////////////////////////////////////////
-			actBenPopulate: function(t, evt){
-				// work with the activity array
-				t.fundActivity = ''
-				var actFieldArray = ['LandProtection', 'Revegetation','RiparianRestoration',
-				'AgriculturalBMPs','RanchingBMPs','FireRiskManagement','WetlandRestoration_Creation',
-				'Road_management', 'EnvEd', 'GenderEquity_Equality', 'RuralSanitation'];
-				$.each(actFieldArray, lang.hitch(t,function(i,v){
-					// replace - with " " 
-					// replace - with ""
-					if(evt.attributes[v] == 1){
-						if (v == 'LandProtection'){
-							var v = 'Land Protection';
-						}
-						if (v == 'Revegetation'){
-							var v = 'Revegetation';
-						}
-						if (v == 'RiparianRestoration'){
-							var v = 'Riparian Restoration';
-						}
-						if (v == 'AgriculturalBMPs'){
-							var v = 'Agricultural BMPs';
-						}
-						if (v == 'RanchingBMPs'){
-							var v = 'Ranching BMPs';
-						}
-						if (v == 'FireRiskManagement'){
-							var v = 'Fire Risk Management';
-						}
-						if (v == 'WetlandRestoration_Creation'){
-							var v = 'Wetland Restoration/Creation';
-						}
-						if (v == 'Road_management'){
-							var v = 'Road Management';
-						}
-						if (v == 'EnvEd'){
-							var v = 'Environmental Education';
-						}
-						if (v == 'GenderEquity_Equality'){
-							var v = 'Gender Equity/Equality';
-						}
-						if (v == 'RuralSanitation'){
-							var v = 'Rural Sanitation';
-						}
-						// populate string 
-						if(t.fundActivity.length == 0){
-							t.fundActivity = v; 
-						}else{
-							t.fundActivity = t.fundActivity + ', ' + v;
-						}
-					}
-				}));
-				// if the string is empty set the string to none.
-				if(t.fundActivity.length == 0){
-					t.fundActivity = "None";
+			commaSeparateNumber: function(val){
+				while (/(\d+)(\d{3})/.test(val.toString())){
+					val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
 				}
-				
-				// work with the benefit array
-				t.fundBenefit = ''
-				var benFieldArray = ['WaterQuality', 'WaterQuantity','Biodiversity','ClimateChange','Social'];
-				$.each(benFieldArray, lang.hitch(t,function(i,v){
-					if(evt.attributes[v] == 1){
-						if (v == 'WaterQuality'){
-							var v = 'Water Quality';
-						}
-						if (v == 'WaterQuantity'){
-							var v = 'Water Quantity';
-						}
-						if (v == 'Biodiversity'){
-							var v = 'Biodiversity';
-						}
-						if (v == 'ClimateChange'){
-							var v = 'Climate Change';
-						}
-						if (v == 'Social'){
-							var v = 'Social';
-						}
-						// Populate the string 
-						if(t.fundBenefit.length == 0){
-							t.fundBenefit = v 
-						}else{
-							t.fundBenefit = t.fundBenefit + ', ' + v;
-						}
-					}
-				}));
-				// if the string is empty set the string to none.
-				if(t.fundBenefit.length == 0){
-					t.fundBenefit = "None";
-				}
+				return val;
 			}
 		});
     }

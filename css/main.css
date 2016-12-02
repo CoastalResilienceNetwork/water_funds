@@ -34,7 +34,13 @@ body.waiting * {
 	width:200px; display:inline-block; margin-bottom:2px;
 }
 .wf_lineHeader{
-	font-size:12pt; text-decoration:underline; text-align:left; margin: 5px 0px 6px 2px;
+	font-size:12pt; text-decoration:underline; text-align:left; margin: 5px 5px 6px 2px; display:inline-block;
+}
+.wf_zoomToText{
+	font-size:12pt; color:blue; cursor:pointer; 
+}	
+.wf_zoomToText:hover{
+    color:#21658c;
 }
 hr.wf_hrStyle {
     border: 0; height: 1px; background-image: linear-gradient(to right, #ccc, #29658C, #ccc); margin: 6px 0 6px;
@@ -49,7 +55,9 @@ hr.wf_hrStyle {
 	float:left; margin-left:2px; font-size:12pt; padding:2px; vertical-align:middle; text-align:left; color:#000; padding-left:19px; text-indent:-19px; 
 	width:150px; cursor:pointer; margin-right:10px;
 }
-
+.wf_lineHeader3{
+	font-size:12pt; text-align:center; margin-top:5px; margin-bottom:10px;	
+}	
 
 
 

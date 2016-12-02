@@ -11,13 +11,13 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Check box listeners and build sliders and multi choice choosen boxes. -->
 <div id='wf_cbListener' class='wf_cbListener wf_sectionWrap'>
 	<!-- Population filter wrapper -->
-	<div  class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Select funds by Population (in thousands)<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
+	<div  class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Select Funds by Downstream Population (in thousands)<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
 	<div class='wf_controlsWrap'>
 		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSizeLess50'> Less than 50,000</div></div>
-		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize50_100'> 50,000 - 100,000</div></div>
-		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize100_500'> 100,000 - 500,000</div></div>
 		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize500_1000'> 500,000 - 1,000,000</div></div>
+		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize50_100'> 50,000 - 100,000</div></div>
 		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize1000_5000'> 1,000,000 - 5,000,000</div></div>
+		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize100_500'> 100,000 - 500,000</div></div>
 		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSizeMore5000'> More than 5,000,000</div></div>
 	</div>
 	
@@ -58,23 +58,24 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<option value="Social">Social</option>
 		</select>
 	</div>
+	<div class='wf_lineHeader3'><span id='fundCnt' style='font-weight:bold;'></span> of 29 Water Funds selected</div>
 </div>
 
 <!-- Create thematic line and attribute area for click on water fund -->
 <hr class='wf_hrStyle'>
 <div id='wf_largeHeader' class='wf_largeHeader wf_hs'>View water fund attributes</div>
 <div class='wf_sectionWrap wf_hide'>
-	<div class='wf_lineHeader' id='idenHeader'>Click map to select a Water Fund</div>
+	<div class='wf_lineHeader' id='idenHeader'>Click map to select a Water Fund</div><span id='zoomToFund' class='wf_zoomToText'></span>
 	<div id='wf_attributeWrap' class='wf_attributeWrap'>
 		<div id='content' class='wf_imagePlace'>Image Placeholder</div>
-		<div id='wf_attName' class='wf_attribute'></div>
-		<div id='wf_attYear' class='wf_attribute'></div>
-		<div id='wf_attPop' class='wf_attribute'></div>
-		<div id='wf_attSource' class='wf_attribute'></div>
-		<div id='wf_attPart' class='wf_attribute'></div>
-		<div id='wf_attArea' class='wf_attribute'></div>
-		<div id='wf_attActivity' class='wf_attribute'></div>
-		<div id='wf_attBenefits' class='wf_attribute'></div>
+		<div id='wf_attName' class='wf_attribute'>Water Fund Name: <span id='-WF_Name'></span></div>
+		<div id='wf_attYear' class='wf_attribute'>Year it became operational: <span id='-OperationalYear'></span></div>
+		<div id='wf_attPop' class='wf_attribute'>Downstream population size: <span id='-PopSize'></span></div>
+		<div id='wf_attSource' class='wf_attribute'>Funding Source(s): <span id='-SourceWatersheds'></span></div>
+		<div id='wf_attPart' class='wf_attribute'>Number of Partners: <span id='-PartnersNum'></span></div>
+		<div id='wf_attArea' class='wf_attribute'>Area impacted (hectares): <span id='-Area_Actual'></span></div>
+		<div id='wf_attActivity' class='wf_attribute'>Activities: <span id='-activity'></span></div>
+		<div id='wf_attBenefits' class='wf_attribute'>Benefits: <span id='-benefit'></span></div>
 	</div>
 </div>
 <hr class='wf_hrStyle'>
