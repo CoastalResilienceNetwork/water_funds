@@ -71,6 +71,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					// clear graphics
 					t.map.graphics.clear();
 					var centerPoint = new esri.geometry.Point(evt.mapPoint.x,evt.mapPoint.y,evt.mapPoint.spatialReference);
+						console.log(centerPoint)
 					var mapWidth = t.map.extent.getWidth();
 					var mapWidthPixels = t.map.width;
 					var pixelWidth = mapWidth/mapWidthPixels;
@@ -91,7 +92,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 			waterFundAttributeBuilder: function(evt,t){
 				if(evt.features[0] != undefined){
 					t.atts = evt.features[0].attributes;
-					$('#' + t.id + 'wf_attributeWrap span').each(lang.hitch(t,function(i,v){
+					$('#' + t.id + 'wf_attributeWrap .wf_attSpan').each(lang.hitch(t,function(i,v){
 						var field = v.id.split("-").pop();
 						var val = t.atts[field];
 						if ( isNaN(val) == false ){
@@ -106,15 +107,19 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						}	
 						$('#' + v.id).html(val)
 					}));
+					if (t.atts.imgName.length == 0){
+						$('#' + t.id + 'wf_imagePlace').hide()
+					}else{		
+						$('#' + t.id + 'wf_imagePlace').show()
+						$('#' + t.id + 'wfPic').attr("src","plugins/water_funds/images/" + t.atts.imgName);
+					}
 					// slide down attribute wrapper
-					$('#' + t.id + 'idenHeader').html('Selected Water Fund Attributes: ');
-					$('#' + t.id + 'zoomToFund').html('Zoom to Water Fund');
+					$('#' + t.id + 'idenHeader').hide();
 					$('#' + t.id + 'wf_attributeWrap').slideDown();
 					$('#' + t.id + 'wf_largeHeader').trigger('click');
 				}else{
 					$('#' + t.id + 'wf_attributeWrap').slideUp();
-					$('#' + t.id + 'idenHeader').html('Click map to select a Water Fund')
-					$('#' + t.id + 'zoomToFund').html('');
+					$('#' + t.id + 'idenHeader').show();
 				}	
 			},
 			commaSeparateNumber: function(val){

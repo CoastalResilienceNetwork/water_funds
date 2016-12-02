@@ -11,7 +11,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Check box listeners and build sliders and multi choice choosen boxes. -->
 <div id='wf_cbListener' class='wf_cbListener wf_sectionWrap'>
 	<!-- Population filter wrapper -->
-	<div  class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Select Funds by Downstream Population (in thousands)<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
+	<div  class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Select Funds by Downstream Population (in thousands)<img src='plugins/water_funds/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
 	<div class='wf_controlsWrap'>
 		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSizeLess50'> Less than 50,000</div></div>
 		<div class='wf_popCbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize500_1000'> 500,000 - 1,000,000</div></div>
@@ -22,7 +22,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	</div>
 	
 	<!-- Partner filter wrapper -->
-	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by number of partners<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
+	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by number of partners<img src='plugins/water_funds/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
 	<div class='wf_sliderCb'><div class='wf_cbLabel1'><input type='checkbox' class='be_pointer' value='PartnersNum'>Number of partners: <span id='PartnersNum-range'>(All Values)</span></div></div>
 	<div class='wf_rangeWrap'>
 		<div class='wf_leftSlider'>0</div>
@@ -30,7 +30,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<div class='wf_rightSlider'>60</div>
 	</div>
 	<!-- Filter by activity wrapper -->
-	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by activities<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
+	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by activities<img src='plugins/water_funds/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
 	<div class='wf_controlsWrap'>
 		<select id='ch-activity' data-placeholder="Choose an activity" multiple class="chosen-islands" tabindex="16">
 			<option value=""></option>
@@ -46,7 +46,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	</div>
 	
 	<!-- Filter by benefits wrapper -->
-	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by benefits<img src='plugins/benefits_explorer/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
+	<div class='wf_lineHeader'><span class='wf_headerHS'>&#xAB;</span>Filter funds by benefits<img src='plugins/water_funds/images/info.png' alt='show climate info' class='wf_minfo' id='-infoCarbon'></div> 
 	<div class='wf_controlsWrap'>
 		<select id='ch-benefits' data-placeholder="Choose a benefit" multiple class="chosen-islands" tabindex="16">
 			<option value=""></option>
@@ -64,17 +64,17 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <hr class='wf_hrStyle'>
 <div id='wf_largeHeader' class='wf_largeHeader wf_hs'>View water fund attributes</div>
 <div class='wf_sectionWrap wf_hide'>
-	<div class='wf_lineHeader' id='idenHeader'>Click map to select a Water Fund</div><span id='zoomToFund' class='wf_zoomToText'></span>
+	<div class='wf_lineHeader' id='idenHeader'>Click map to select a Water Fund</div>
 	<div id='wf_attributeWrap' class='wf_attributeWrap'>
-		<div id='content' class='wf_imagePlace'>Image Placeholder</div>
-		<div id='wf_attName' class='wf_attribute'>Water Fund Name: <span id='-WF_Name'></span></div>
-		<div id='wf_attYear' class='wf_attribute'>Year it became operational: <span id='-OperationalYear'></span></div>
-		<div id='wf_attPop' class='wf_attribute'>Downstream population size: <span id='-PopSize'></span></div>
-		<div id='wf_attSource' class='wf_attribute'>Funding Source(s): <span id='-SourceWatersheds'></span></div>
-		<div id='wf_attPart' class='wf_attribute'>Number of Partners: <span id='-PartnersNum'></span></div>
-		<div id='wf_attArea' class='wf_attribute'>Area impacted (hectares): <span id='-Area_Actual'></span></div>
-		<div id='wf_attActivity' class='wf_attribute'>Activities: <span id='-activity'></span></div>
-		<div id='wf_attBenefits' class='wf_attribute'>Benefits: <span id='-benefit'></span></div>
+		<div class='wf_imagePlace' id='wf_imagePlace'><img id='wfPic' class='wf_pic' src='' alt='Picture of Water Fund'></div>
+		<div id='wf_attName' class='wf_attribute'>Water Fund Name: <span id='-WF_Name' class='wf_attSpan'></span> - <span id='zoomToFund' class='wf_zoomToText'> Zoom</span></div>
+		<div id='wf_attYear' class='wf_attribute'>Year it became operational: <span id='-OperationalYear' class='wf_attSpan'></span></div>
+		<div id='wf_attPop' class='wf_attribute'>Downstream population size: <span id='-PopSize' class='wf_attSpan'></span></div>
+		<div id='wf_attSource' class='wf_attribute'>Funding Source(s): <span id='-SourceWatersheds' class='wf_attSpan'></span></div>
+		<div id='wf_attPart' class='wf_attribute'>Number of Partners: <span id='-PartnersNum' class='wf_attSpan'></span></div>
+		<div id='wf_attArea' class='wf_attribute'>Area impacted (hectares): <span id='-Area_Actual' class='wf_attSpan'></span></div>
+		<div id='wf_attActivity' class='wf_attribute'>Activities: <span id='-activity' class='wf_attSpan'></span></div>
+		<div id='wf_attBenefits' class='wf_attribute'>Benefits: <span id='-benefit' class='wf_attSpan'></span></div>
 	</div>
 </div>
 <hr class='wf_hrStyle'>

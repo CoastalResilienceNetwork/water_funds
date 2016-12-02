@@ -12,7 +12,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Water Funds Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
-		hasCustomPrint: true, usePrintPreviewMap: true, previewMapSize: [1000, 550], height:"550", width:"390",
+		hasCustomPrint: true, usePrintPreviewMap: true, previewMapSize: [1000, 550], height:"570", width:"390",
 		
 		// First function called when the user clicks the pluging icon. 
 		initialize: function (frameworkParameters) {
@@ -23,10 +23,10 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			this.con1 = dom.byId('plugins/water_funds-1');
 			if (this.con1 != undefined){
 				domStyle.set(this.con1, "width", "390px");
-				domStyle.set(this.con1, "height", "550px");
+				domStyle.set(this.con1, "height", "570px");
 			}else{
 				domStyle.set(this.con, "width", "390px");
-				domStyle.set(this.con, "height", "550px");
+				domStyle.set(this.con, "height", "570px");
 			}	
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
