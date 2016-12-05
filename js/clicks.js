@@ -6,6 +6,20 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 
         return declare(null, {
 			clickListener: function(t){
+				// Infographic section clicks
+				$('.plugin-infographic .wf_accordHeader').on('click',lang.hitch(t,function(c){
+					if ( $(c.currentTarget).next().is(":hidden") ){
+						$('.plugin-infographic .wf_exWrap').slideUp();
+						$(c.currentTarget).next().slideDown();
+					}	
+				}));
+				$('#' + t.id + ' .wf_minfo').on('click',lang.hitch(t,function(c){
+					var ben = c.target.id.split("-").pop();
+					$('.plugin-help').trigger('click');
+					$('.plugin-infographic .' + ben).trigger('click');
+					$('.plugin-infographic .wf_infoWrap').siblings('span').children().html('Back');
+				}));
+				
 				// toggle filter and attribute areas.
 				$('#' + t.id + ' .wf_hs').on('click',lang.hitch(this,function(c){
 					if ( $(c.currentTarget).next().is(":hidden") ){
