@@ -5,14 +5,14 @@ require({
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
 	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/_base/lang", "dojo/text!./obj.json", 
-	"jquery", "dojo/text!./html/content.html", './js/jquery-ui-1.11.2/jquery-ui', './js/navigation', './js/esriapi', './js/clicks', './js/barChart'
+	"jquery", "dojo/text!./html/content.html", "dojo/text!./html/infoGraphic.html", './js/jquery-ui-1.11.2/jquery-ui', './js/navigation', './js/esriapi', './js/clicks', './js/barChart'
 ],
 function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj, 
-			$, content, ui, navigation, esriapi, clicks, barChart ) {
+			$, content, ig, ui, navigation, esriapi, clicks, barChart ) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Water Funds Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
-		hasCustomPrint: true, usePrintPreviewMap: true, previewMapSize: [1000, 550], height:"570", width:"390",
+		hasCustomPrint: true, usePrintPreviewMap: true, previewMapSize: [1000, 550], height:"570", width:"390", infoGraphic: ig,
 		
 		// First function called when the user clicks the pluging icon. 
 		initialize: function (frameworkParameters) {
@@ -95,7 +95,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 		},
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
-			
 			$('.basemap-selector').trigger('change', 3);
 			this.mapScale  = this.map.getScale();
 			// BRING IN OTHER JS FILES
