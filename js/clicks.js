@@ -208,7 +208,6 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						t.obj.visibleLayers = [2,3];
 					}
 				}
-				console.log(t.exp)
 				var layerDefinitions = [];
 				layerDefinitions[0] = t.exp;
 				layerDefinitions[2] = t.exp;

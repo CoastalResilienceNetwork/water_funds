@@ -6,7 +6,6 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui ) {
 
         return declare(null, {
 			makeChart: function(t){	
-				console.log('test')
 			/* // symbolize x axis
 				var l = $('.vertAndLines').find('.dashedLines');  
 				$.each(l, function(i,v){

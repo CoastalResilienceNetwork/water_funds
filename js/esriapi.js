@@ -71,7 +71,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					// clear graphics
 					t.map.graphics.clear();
 					var centerPoint = new esri.geometry.Point(evt.mapPoint.x,evt.mapPoint.y,evt.mapPoint.spatialReference);
-						console.log(centerPoint)
 					var mapWidth = t.map.extent.getWidth();
 					var mapWidthPixels = t.map.width;
 					var pixelWidth = mapWidth/mapWidthPixels;

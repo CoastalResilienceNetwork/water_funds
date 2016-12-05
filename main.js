@@ -95,7 +95,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 		},
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
-			$('.basemap-selector').trigger('change', 3);
+			//$('.basemap-selector').trigger('change', 3);
 			this.mapScale  = this.map.getScale();
 			// BRING IN OTHER JS FILES
 			this.barChart = new barChart();
