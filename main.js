@@ -40,6 +40,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 				this.map.removeLayer(this.basinFl);
 				this.map.graphics.clear();
 			}
+			this.open = "no";
 		},
 		// Called after hibernate at app startup. Calls the render function which builds the plugins elements and functions.   
 		activate: function () {
@@ -58,11 +59,16 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 				}else{
 					this.obj.stateSet = "no";
 				}	
-			}		
+			}	
+			this.open = "yes";			
 		},
 		// Called when user hits the minimize '_' icon on the pluging. Also called before hibernate when users closes app by clicking 'X'.
 		deactivate: function () {
-				
+			if (this.appDiv != undefined){
+				this.map.removeLayer(this.dynamicLayer);
+				this.map.graphics.clear();
+			}
+			this.open = "no";	
 		},	
 		// Called when user hits 'Save and Share' button. This creates the url that builds the app at a given state using JSON. 
 		// Write anything to you varObject.json file you have tracked during user activity.		

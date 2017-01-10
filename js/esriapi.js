@@ -68,23 +68,25 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				
 				// on map click do below
 				t.map.on("click", lang.hitch(t, function(evt) {
-					// clear graphics
-					t.map.graphics.clear();
-					var centerPoint = new esri.geometry.Point(evt.mapPoint.x,evt.mapPoint.y,evt.mapPoint.spatialReference);
-					var mapWidth = t.map.extent.getWidth();
-					var mapWidthPixels = t.map.width;
-					var pixelWidth = mapWidth/mapWidthPixels;
-					// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
-					var tolerance = 10 * pixelWidth;
-					var pnt = evt.mapPoint;
-					var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, evt.mapPoint.spatialReference);
-					var q = new Query();
-					q.geometry = ext.centerAt(centerPoint);
-					if(t.map.getScale() > 8000000){
-						t.waterFundPoint.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
-					}else{
-						t.waterFundPoly.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
-					}
+					if (t.open == "yes"{	
+						// clear graphics
+						t.map.graphics.clear();
+						var centerPoint = new esri.geometry.Point(evt.mapPoint.x,evt.mapPoint.y,evt.mapPoint.spatialReference);
+						var mapWidth = t.map.extent.getWidth();
+						var mapWidthPixels = t.map.width;
+						var pixelWidth = mapWidth/mapWidthPixels;
+						// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
+						var tolerance = 10 * pixelWidth;
+						var pnt = evt.mapPoint;
+						var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, evt.mapPoint.spatialReference);
+						var q = new Query();
+						q.geometry = ext.centerAt(centerPoint);
+						if(t.map.getScale() > 8000000){
+							t.waterFundPoint.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+						}else{
+							t.waterFundPoly.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+						}
+					}	
 				}));					
 			},
 			// build the attribute table for the water fund click
