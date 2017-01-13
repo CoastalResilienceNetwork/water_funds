@@ -1,0 +1,113 @@
+﻿<!--This HTML is used in the render function to build the elements within the plugin. The render function first creats a
+Dijit ContentPane to hold all the elements. The ContentPane is assigned a dynamic id upon creation. The render function
+takes the ContentPane id and prepends it to every element with a declared id in this HTML before the elements are created.
+The unique ContentPane id makes all the element ids unique and prevents duplicate id errors in split screen mode.-->
+
+<!--Opening view of the app. Give a little background and instructions to get started-->
+<div id='getHelpBtnWrap' class='sty_getHelpBtnWrap'>
+	<div id='getHelpBtn' class='sty_getHelpBtn'>Start Using Water Funds Explorer</div>
+</div>
+<div id='mainAccord' class='sty_flex1 sty_hide'>
+	<h3>Filter Water Funds</h3>
+	<!-- Check box listeners and build sliders and multi choice choosen boxes. -->
+	<div>
+		<div class='sty_blueHeader'><span id='fundCnt' style='font-weight:bold;'></span> of 29 Water Funds selected</div>
+		<!-- Population filter wrapper -->
+		<div  class='sty_underlineHeader'>Filter Funds by Downstream Population (in thousands)<img src='plugins/water_funds_prototype/images/info.png' alt='show downstream population info' class='sty_infoIcon' id='-infoDownPop'></div> 
+		<div class='wf_controlsWrap'>
+			<div class='sty_cbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSizeLess50'> Less than 50K</div></div>
+			<div class='sty_cbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize500_1000'> 500K - 1Mil</div></div>
+			<div class='sty_cbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize50_100'> 50K - 100K</div></div>
+			<div class='sty_cbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize1000_5000'> 1Mil - 5Mil</div></div>
+			<div class='sty_cbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSize100_500'> 100K - 500K</div></div>
+			<div class='sty_cbWrap'><div class='wf_cbLabel'><input type='checkbox' value='PopSizeMore5000'> More than 5Mil</div></div>
+		</div>
+		
+		<!-- Partner filter wrapper -->
+		<div class='sty_underlineHeader'>Filter funds by number of partners<img src='plugins/water_funds_prototype/images/info.png' alt='show partners info' class='sty_infoIcon' id='-infoPartners'></div> 
+		<div class='wf_sliderCb'><div class='wf_cbLabel1'><input type='checkbox' class='be_pointer' value='PartnersNum'>Number of partners: <span id='PartnersNum-range'>(All Values)</span></div></div>
+		<div class='wf_rangeWrap'>
+			<div class='sty_leftSlider'>0</div>
+			<div id='PartnersNumSlider' class='wf_rslide'></div>
+			<div class='sty_rightSlider'>60</div>
+		</div>
+		<!-- Filter by activity wrapper -->
+		<div class='sty_underlineHeader'>Filter funds by activities<img src='plugins/water_funds_prototype/images/info.png' alt='show activities info' class='sty_infoIcon' id='-infoActivities'></div> 
+		<div class='wf_controlsWrap wf_cwTopBump'>
+			<select id='ch-activity' data-placeholder="Choose an activity" multiple class="chosen-islands" tabindex="16">
+				<option value=""></option>
+				<option value="LandProtection">Targeted land protection</option>
+				<option value="Revegetation">Revegetation</option>
+				<option value="RiparianRestoration">Riparian restoration</option>
+				<option value="AgriculturalBMPs">Agricultural BMPs</option>
+				<option value="RanchingBMPs">Ranching BMPs</option>
+				<option value="FireRiskManagement">Fire risk management</option>
+				<option value="WetlandRestoration_Creation">Wetland restoration and creation</option>
+				<option value="Road_management">Road management</option>
+			</select>
+		</div>
+		
+		<!-- Filter by benefits wrapper -->
+		<div class='sty_underlineHeader'>Filter funds by benefits<img src='plugins/water_funds_prototype/images/info.png' alt='show benefits info' class='sty_infoIcon' id='-infoBenefits'></div> 
+		<div class='wf_controlsWrap wf_cwTopBump'>
+			<select id='ch-benefits' data-placeholder="Choose a benefit" multiple class="chosen-islands" tabindex="16">
+				<option value=""></option>
+				<option value="WaterQuality">Water Quality</option>
+				<option value="WaterQuantity">Water Quantity</option>
+				<option value="Biodiversity">Biodiversity</option>
+				<option value="ClimateChange">Climate Change</option>
+				<option value="Social">Social</option>
+			</select>
+		</div>
+	</div>
+
+	<h3 id='wf_largeHeader'>View water fund attributes</h3>
+	<div>
+		<div class='sty_blueHeader' id='idenHeader'><b>Click map to select a Water Fund</b></div>
+		<div id='wf_attributeWrap' class='sty_hide'>
+			<div class='wf_imagePlace' id='wf_imagePlace'><img id='wfPic' class='wf_pic' src='' alt='Picture of Water Fund'></div>
+			<div class='wf_attPaddingBump'>
+				<div class='wf_attLine' style='font-weight:bold; text-align:center;'><span id='-WF_Name' class='wf_attSpan'></span> - <span id='zoomToFund' class='wf_zoomToText'> Zoom</span></div>
+				<div class='wf_attLine'><span class='wf_attribute'>Year it became operational</span>: <span id='-OperationalYear' class='wf_attSpan'></span></div>
+				<div class='wf_attLine'><span class='wf_attribute'>Downstream population size</span>: <span id='-PopSize' class='wf_attSpan'></span></div>
+				<div class='wf_attLine'><span class='wf_attribute'>Funding Source(s)</span>: <span id='-fundingSource' class='wf_attSpan'></span></div>
+				<div class='wf_attLine'><span class='wf_attribute'>Number of Partners</span>: <span id='-PartnersNum' class='wf_attSpan'></span></div>
+				<div class='wf_attLine'><span class='wf_attribute'>Area impacted (hectares)</span>: <span id='-Area_Actual' class='wf_attSpan'></span></div>
+				<div class='wf_attLine'><span class='wf_attribute'>Activities</span>: <span id='-activity' class='wf_attSpan'></span></div>
+				<div class='wf_attLine'><span class='wf_attribute'>Benefits</span>: <span id='-benefit' class='wf_attSpan'></span></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id='infoAccord' class='sty_flex1'>
+	<h3 class='infoDoc'>Documentation</h3>
+	<div class='sty_explainWrap' style='display:block;'>
+		<p>
+			A water fund is a source water protection mechanism that pools funding from downstream beneficiaries to invest in upstream source water protection activities.  Water funds have four common characteristics: science-based plans, a multi-stakeholder approach, a funding mechanism and implementation capacity.  The Water Funds Explorer allows users to learn about operational water fund programs of The Nature Conservancy and its partners. 
+		</p> 
+	</div> 
+	<h3 class='infoDownPop'>Filter funds by downstream population</h3>
+	<div class='sty_explainWrap'>
+		<p>
+			The downstream population benefitting from upstream source water protection activities for a given water fund, as reported by that water fund’s program manager(s); usually corresponds to the size of one or more cities.
+		</p>
+	</div>
+	<h3 class='infoPartners'>Filter funds by number of partners</h3>
+	<div class='sty_explainWrap'>
+		<p>
+			The number of partner organizations or groups collaborating on a given water fund, as reported by that water fund’s program manager(s).  Number of partners does not equate to size or success of a water fund.
+		</p>
+	</div>	
+	<h3 class='infoActivities'>Filter funds by activities</h3>
+	<div class='sty_explainWrap'>
+		<p>
+			The main categories of source water protection activities undertaken by a given water fund, as reported by that water fund’s program manager(s).  Categories are defined in <a class='sty_anchor' href='https://global.nature.org/content/beyond-the-source' target='_blank'>data documentation</a>.
+		</p>
+	</div>	
+	<h3 class='infoBenefits'>Filter funds by benefits</h3>
+	<div class='sty_explainWrap'>
+		<p>
+			The main categories of benefits anticipated as a result of a given water fund’s activities, as reported by that water fund’s program manager(s).  Categories are defined in <a class='sty_anchor' href='https://global.nature.org/content/beyond-the-source' target='_blank'>data documentation</a>. 
+		</p>
+	</div>	
+</div>

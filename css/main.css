@@ -1,0 +1,47 @@
+
+/* Water fund app styling */
+.wf_rslide{
+	width:180px; display:inline-block; margin-bottom:2px;
+}
+.wf_sliderCb{
+	width:330px; font-size:1.4rem; text-decoration:underline; text-align:left; margin: 0px 5px 6px 2px; display:inline-block;
+}
+.wf_zoomToText{
+	font-size:1.4rem; color:blue; cursor:pointer; font-weight:normal;
+}	
+.wf_zoomToText:hover{
+    color:#21658c;
+}
+.wf_cbLabel{
+	float:left; margin-left:2px; font-size:1.4rem; padding:2px; vertical-align:middle; text-align:left; color:#000; padding-left:19px; text-indent:-19px; 
+	width:140px; cursor:pointer; margin-right:10px;
+}
+.wf_cbLabel1{
+	float:left; margin-left:2px; font-size:1.4rem; padding:2px; vertical-align:middle; text-align:left; color:#000; padding-left:19px; text-indent:-19px; 
+	cursor:pointer; margin-right:10px;
+}
+.wf_controlsWrap{
+	margin-left:5px; margin-bottom:14px;	
+}
+.wf_cwTopBump{
+	margin-top:5px;	
+}	
+.wf_rangeWrap{
+	display:none; margin-bottom:12px; margin-left:24px; margin-top:0px;
+}	
+.wf_attribute{
+	text-decoration:underline; 
+}
+.wf_attLine{
+	font-size:1.4rem; padding-bottom:6px; padding-left:5px; text-indent:-10px; margin-left:5px;	
+}	
+.wf_attSpan{
+	color: #21658c;
+}
+.wf_imagePlace{
+	text-align:center; margin-bottom:6px; margin-top:10px; 
+}
+.wf_pic{
+	height:190px; box-shadow:1px 1px 3px #333;
+}	
+
