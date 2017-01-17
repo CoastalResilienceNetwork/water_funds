@@ -125,7 +125,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					
 					$('#' + t.id + 'wf_imagePlace').slideUp()
 					if (t.atts.imgName.length > 0){		
-						$('#' + t.id + 'wfPic').attr("src","plugins/water_funds_prototype/images/" + t.atts.imgName);
+						$('#' + t.id + 'wfPic').attr("src","plugins/water_funds/images/" + t.atts.imgName);
 						$('#' + t.id + 'wf_imagePlace').slideDown()
 					}
 					// slide down attribute wrapper
