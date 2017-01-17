@@ -1,9 +1,9 @@
 {
     "css": [
 		"//cdn.sencha.io/ext-4.1.1-gpl/resources/css/ext-all.css",
-		"plugins/water_funds_prototype/css/barChart.css",
-		"plugins/water_funds_prototype/css/toggleButtons.css",
-		"plugins/water_funds_prototype/css/main.css"
+		"plugins/water_funds/css/barChart.css",
+		"plugins/water_funds/css/toggleButtons.css",
+		"plugins/water_funds/css/main.css"
     ],
     "use": {
         "underscore": { "attach": "_" },
