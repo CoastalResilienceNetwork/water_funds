@@ -123,12 +123,12 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 					}
 				}));	
 // Work with Multi select dropdowns///////////////////////////////////////////////////////////////				
-				require(["jquery", "plugins/water_funds_prototype/js/chosen.jquery"],lang.hitch(this,function($) {
+				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(this,function($) {
 					var configCrs =  { '.chosen-islands' : {allow_single_deselect:true, width:"310px", disable_search:true}}
 					for (var selector in configCrs)  { $(selector).chosen(configCrs[selector]); }
 				}));
 				// User selections on chosen menus for activities
-				require(["jquery", "plugins/water_funds_prototype/js/chosen.jquery"],lang.hitch(t,function($) {	
+				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
 					//Select activity
 					t.activityArray = []
 					$('#' + t.id + 'ch-activity').chosen().change(lang.hitch(t,function(c, p){
@@ -159,7 +159,7 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 					}));
 				}));
 				// User selections on chosen menus for benefits
-				require(["jquery", "plugins/water_funds_prototype/js/chosen.jquery"],lang.hitch(t,function($) {	
+				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
 					//Select benefit
 					t.benefitArray = []
 					$('#' + t.id + 'ch-benefits').chosen().change(lang.hitch(t,function(c, p){
