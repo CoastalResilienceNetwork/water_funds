@@ -46,12 +46,8 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 				this.map.addLayer(this.dynamicLayer);
 				this.map.addLayer(this.waterFundPoly);
 				this.map.addLayer(this.waterFundPoint);
-				// on set state it calls activate twice. on the second call render is true so it call this else. layer infos isn't done yet so if you call setNavBtns it can't use layer infos
-				if (this.obj.stateSet == "no"){	
-					//this.navigation.setNavBtns(this);	
-				}else{
-					this.obj.stateSet = "no";
-				}	
+				$('#' + this.id).parent().parent().css('display', 'flex');
+				this.clicks.updateAccord(this);	
 			}	
 			this.open = "yes";
 		},
@@ -107,7 +103,10 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			this.appDiv = new ContentPane({style:'padding:0; color:#000; flex:1; display:flex; flex-direction:column;}'});
 			this.id = this.appDiv.id
 			dom.byId(this.container).appendChild(this.appDiv.domNode);	
-			$(dom.byId(this.container)).addClass('sty_flexColumn')			
+			$('#' + this.id).parent().addClass('sty_flexColumn')
+			if (this.obj.stateSet == "no"){
+				$('#' + this.id).parent().parent().css('display', 'flex')
+			}		
 			// Get html from content.html, prepend appDiv.id to html element id's, and add to appDiv
 			var idUpdate = content.replace(/id='/g, "id='" + this.id);	
 			$('#' + this.id).html(idUpdate);
