@@ -21,16 +21,14 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
-			this.url = "http://dev.services2.coastalresilience.org:6080/arcgis/rest/services/Water_Blueprint/water_fund/MapServer";
+			this.url = "http://dev.services2.coastalresilience.org:6080/arcgis/rest/services/Water_Blueprint/water_fund1/MapServer";
 			this.layerDefs = [];
 		},
 		// Called after initialize at plugin startup (why all the tests for undefined). Also called after deactivate when user closes app by clicking X. 
 		hibernate: function () {
 			if (this.appDiv != undefined){
-				this.map.removeLayer(this.dynamicLayer);
-				this.map.removeLayer(this.waterFundPoly);
-				this.map.removeLayer(this.waterFundPoint);
-				this.map.graphics.clear();
+				this.dynamicLayer.setVisibleLayers([-1])
+				//this.map.removeLayer(this.dynamicLayer);
 			}
 			this.open = "no";
 		},
@@ -39,34 +37,54 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			if (this.rendered == false) {
 				this.rendered = true;							
 				this.render();
-				// Hide the print button until a hex has been selected
 				$(this.printButton).hide();
 			}else{
-				this.clicks.updateAccord(this);
-				this.map.addLayer(this.dynamicLayer);
-				this.map.addLayer(this.waterFundPoly);
-				this.map.addLayer(this.waterFundPoint);
+				this.dynamicLayer.setVisibleLayers(this.obj.visibleLayers);
+				//this.map.addLayer(this.dynamicLayer);
 				$('#' + this.id).parent().parent().css('display', 'flex');
-				this.clicks.updateAccord(this);	
+				this.clicks.updateAccord(this);
 			}	
 			this.open = "yes";
 		},
 		// Called when user hits the minimize '_' icon on the pluging. Also called before hibernate when users closes app by clicking 'X'.
 		deactivate: function () {
 			if (this.appDiv != undefined){
-				this.map.removeLayer(this.dynamicLayer);
-				this.map.graphics.clear();
+				this.dynamicLayer.setVisibleLayers([-1])
+				//this.map.removeLayer(this.dynamicLayer);
 			}
 			this.open = "no";	
 		},	
 		// Called when user hits 'Save and Share' button. This creates the url that builds the app at a given state using JSON. 
 		// Write anything to you varObject.json file you have tracked during user activity.		
 		getState: function () {
-			this.obj.extent = this.map.geographicExtent;
-			this.obj.stateSet = "yes";	
-			var state = new Object();
-			state = this.obj;
-			return state;	
+			// remove this conditional statement when minimize is added
+			if ( $('#' + this.id ).is(":visible") ){
+				//accrodions
+				if ( $('#' + this.id + 'mainAccord').is(":visible") ){
+					this.obj.accordVisible = 'mainAccord';
+					this.obj.accordHidden = 'infoAccord';
+				}else{
+					this.obj.accordVisible = 'infoAccord';
+					this.obj.accordHidden = 'mainAccord';
+				}	
+				this.obj.accordActive = $('#' + this.id + this.obj.accordVisible).accordion( "option", "active" );
+				// main button text
+				this.obj.buttonText = $('#' + this.id + 'getHelpBtn').html();
+				// Population checkboxes
+				$('#' + this.id + 'cbWrap input').each(lang.hitch(this,function(i,v){
+					if ($(v).prop('checked')){
+						var pop = $(v).val();
+						this.obj.checkedPopulation.push(pop)
+					}	
+				}));
+				//extent
+				this.obj.extent = this.map.geographicExtent;
+				this.obj.stateSet = "yes";	
+				var state = new Object();
+				state = this.obj;
+				console.log(this.obj)
+				return state;	
+			}
 		},
 		// Called before activate only when plugin is started from a getState url. 
 		//It's overwrites the default JSON definfed in initialize with the saved stae JSON.
@@ -77,17 +95,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 		beforePrint: function(printDeferred, $printArea, mapObject) {
 			printDeferred.resolve();
 		},	
-		// Resizes the plugin after a manual or programmatic plugin resize so the button pane on the bottom stays on the bottom.
-		// Tweak the numbers subtracted in the if and else statements to alter the size if it's not looking good.
-		resize1: function(w, h) {
-			cdg = domGeom.position(this.container);
-			if (cdg.h == 0) { this.sph = this.height - 40; }
-			else { this.sph = cdg.h - 32; }
-			// test
-			/*if (cdg.h == 0) { this.sph = this.height - 80; }
-			else { this.sph = cdg.h - 62; }*/
-			domStyle.set(this.appDiv.domNode, "height", this.sph + "px"); 
-		},
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
 			//this.oid = -1;
@@ -104,6 +111,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			this.id = this.appDiv.id
 			dom.byId(this.container).appendChild(this.appDiv.domNode);	
 			$('#' + this.id).parent().addClass('sty_flexColumn')
+			$('#' + this.id).addClass('sty_wrap')
 			if (this.obj.stateSet == "no"){
 				$('#' + this.id).parent().parent().css('display', 'flex')
 			}		
@@ -120,8 +128,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			this.esriapi.esriApiFunctions(this);
 			
 			this.rendered = true;	
-			// resize the container in the render function after the container is built.
-			this.resize1();
 		},
 	});
 });

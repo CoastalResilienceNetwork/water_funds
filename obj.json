@@ -1,4 +1,10 @@
 {
 	"visibleLayers": [2],
+	"accordVisible": "",
+	"accordHidden": "",
+	"accordActive": 0,
+	"buttonText": "",
+	"checkedPopulation": [],
+	"extent": "",
 	"stateSet": "no"
 }

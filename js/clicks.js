@@ -48,18 +48,9 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 // WORK WITH CHECKBOX'S//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// population checkbox
 				t.populationArray = []
-				$('#' + t.id + ' .sty_cbWrap').on('click',lang.hitch(t,function(c){
-					var val = "";
-					// if they click a label to toggle the checkbox
-					if (c.target.checked == undefined){
-						$(c.currentTarget.children[0].children[0]).prop("checked", !$(c.currentTarget.children[0].children[0]).prop("checked") )	
-						val = $(c.currentTarget.children[0].children[0]).val()
-					}
-					// they clicked on the checkbox
-					else{
-						val = c.target.value;
-					}
-					if ($(c.currentTarget.children[0].children[0]).prop('checked') === true){
+				$('#' + t.id + 'cbWrap input').on('click',lang.hitch(t,function(c){
+					var val = c.target.value;
+					if (c.target.checked == true){
 						t.populationArray.push(val);
 					}else{
 						var index = t.populationArray.indexOf(val);
@@ -67,7 +58,6 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 							t.populationArray.splice(index, 1);
 						}
 					}
-
 					t.popExpArray = [];
 					t.popExp = '';
 					var cnt = 0;
@@ -100,23 +90,15 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 					}
 				});
 				// hide and show slider
-				$('#' + t.id + ' .wf_sliderCb').on('click',lang.hitch(t,function(c){
-					var ben = "";
-					// if they click a label to toggle the checkbox
-					if (c.target.checked == undefined){
-						$(c.currentTarget.children[0].children[0]).prop("checked", !$(c.currentTarget.children[0].children[0]).prop("checked") )	
-						ben = $(c.currentTarget.children[0].children[0]).val()
-					}
-					// they clicked on the checkbox
-					else{
-						ben = c.target.value;
-					}
-					if ($(c.currentTarget.children[0].children[0]).prop('checked') === true){
-						$(c.currentTarget).parent().find('.wf_rangeWrap').slideDown();
+				$('#' + t.id + 'partnerWrap input').on('click',lang.hitch(t,function(c){
+					var ben = c.target.value;
+					if (c.target.checked == true){
+						console.log($(c.currentTarget))
+						$('#' + t.id + 'partnerWrap').find('.wf_rangeWrap').slideDown();
 						var values = $('#' + t.id + ben + 'Slider').slider("option", "values");
 						$('#' + t.id + ben + 'Slider').slider('values', values); 
 					}else{
-						$(c.currentTarget).parent().find('.wf_rangeWrap').slideUp();
+						$('#' + t.id + 'partnerWrap').find('.wf_rangeWrap').slideUp();
 						t[ben] = "";
 						t.clicks.filterChange(t);
 						$('#' + t.id + ben + '-range').html("")
