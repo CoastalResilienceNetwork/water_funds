@@ -46,12 +46,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 				this.map.addLayer(this.dynamicLayer);
 				this.map.addLayer(this.waterFundPoly);
 				this.map.addLayer(this.waterFundPoint);
-				// on set state it calls activate twice. on the second call render is true so it call this else. layer infos isn't done yet so if you call setNavBtns it can't use layer infos
-				if (this.obj.stateSet == "no"){	
-					//this.navigation.setNavBtns(this);	
-				}else{
-					this.obj.stateSet = "no";
-				}	
+				$('#' + this.id).parent().parent().css('display', 'flex');
 			}	
 			this.open = "yes";
 		},
@@ -81,17 +76,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 		beforePrint: function(printDeferred, $printArea, mapObject) {
 			printDeferred.resolve();
 		},	
-		// Resizes the plugin after a manual or programmatic plugin resize so the button pane on the bottom stays on the bottom.
-		// Tweak the numbers subtracted in the if and else statements to alter the size if it's not looking good.
-		resize1: function(w, h) {
-			cdg = domGeom.position(this.container);
-			if (cdg.h == 0) { this.sph = this.height - 40; }
-			else { this.sph = cdg.h - 32; }
-			// test
-			/*if (cdg.h == 0) { this.sph = this.height - 80; }
-			else { this.sph = cdg.h - 62; }*/
-			domStyle.set(this.appDiv.domNode, "height", this.sph + "px"); 
-		},
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
 			//this.oid = -1;
@@ -103,11 +87,13 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			this.esriapi = new esriapi();
 			this.clicks = new clicks();
 			// ADD HTML TO APP
-			// Define Content Pane as HTML parent		
 			this.appDiv = new ContentPane({style:'padding:0; color:#000; flex:1; display:flex; flex-direction:column;}'});
 			this.id = this.appDiv.id
-			dom.byId(this.container).appendChild(this.appDiv.domNode);	
-			$(dom.byId(this.container)).addClass('sty_flexColumn')			
+			dom.byId(this.container).appendChild(this.appDiv.domNode);					
+			$('#' + this.id).parent().addClass('sty_flexColumn')
+			if (this.obj.stateSet == "no"){
+				$('#' + this.id).parent().parent().css('display', 'flex')
+			}		
 			// Get html from content.html, prepend appDiv.id to html element id's, and add to appDiv
 			var idUpdate = content.replace(/id='/g, "id='" + this.id);	
 			$('#' + this.id).html(idUpdate);
@@ -121,8 +107,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 			this.esriapi.esriApiFunctions(this);
 			
 			this.rendered = true;	
-			// resize the container in the render function after the container is built.
-			this.resize1();
 		},
 	});
 });
