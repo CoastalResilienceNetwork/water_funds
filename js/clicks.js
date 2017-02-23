@@ -1,7 +1,8 @@
 define([
-	"esri/tasks/query", "esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", "dojo/_base/lang", "dojo/on", "jquery", './jquery-ui-1.11.2/jquery-ui', './esriapi', 'esri/dijit/editing/AttachmentEditor'
+	"esri/tasks/query", "esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", "dojo/_base/lang", "dojo/on", "jquery", './jquery-ui-1.11.2/jquery-ui', './esriapi', 'esri/dijit/editing/AttachmentEditor',
+	"./chosen.jquery"
 ],
-function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, AttachmentEditor ) {
+function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, AttachmentEditor, chosen ) {
         "use strict";
 
         return declare(null, {
@@ -105,12 +106,12 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 					}
 				}));	
 // Work with Multi select dropdowns///////////////////////////////////////////////////////////////				
-				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(this,function($) {
-					var configCrs =  { '.chosen-islands' : {allow_single_deselect:true, width:"310px", disable_search:true}}
-					for (var selector in configCrs)  { $(selector).chosen(configCrs[selector]); }
-				}));
+				//require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(this,function($) {
+				var configCrs =  { '.chosen-islands' : {allow_single_deselect:true, width:"310px", disable_search:true}}
+				for (var selector in configCrs)  { $(selector).chosen(configCrs[selector]); }
+				//}));
 				// User selections on chosen menus for activities
-				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
+				//require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
 					//Select activity
 					t.activityArray = []
 					$('#' + t.id + 'ch-activity').chosen().change(lang.hitch(t,function(c, p){
@@ -139,9 +140,9 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						}));
 						t.clicks.filterChange(t);
 					}));
-				}));
+				//}));
 				// User selections on chosen menus for benefits
-				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
+				//require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
 					//Select benefit
 					t.benefitArray = []
 					$('#' + t.id + 'ch-benefits').chosen().change(lang.hitch(t,function(c, p){
@@ -171,7 +172,7 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						// call filter change function 
 						t.clicks.filterChange(t);
 					}));
-				}));
+				//}));
 				// Zoom to water fund click
 				$('#' + t.id + 'zoomToFund').on('click',lang.hitch(t,function(){
 					t.zoomTo =  'yes';	
