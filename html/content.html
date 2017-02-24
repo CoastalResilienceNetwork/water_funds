@@ -4,19 +4,19 @@ takes the ContentPane id and prepends it to every element with a declared id in 
 The unique ContentPane id makes all the element ids unique and prevents duplicate id errors in split screen mode.-->
 
 <!--Opening view of the app. Give a little background and instructions to get started-->
-<div id='getHelpBtnWrap' class='sty_getHelpBtnWrap'>
-	<div id='getHelpBtn' class='sty_getHelpBtn'>Start Using Water Funds Explorer</div>
+<div id="getHelpBtnWrap" class="sty_getHelpBtnWrap">
+	<div id="getHelpBtn" class="sty_getHelpBtn">Start Using Water Funds Explorer</div>
 </div>
-<div id='mainAccord' class='sty_flex1 sty_hide'>
+<div id="mainAccord" class="sty_flex1 sty_hide">
 	<h3>Filter Water Funds</h3>
 	<!-- Check box listeners and build sliders and multi choice choosen boxes. -->
 	<div>
 		<section>
-			<div class='sty_blueHeader'><span id='fundCnt' style='font-weight:bold;'></span> of 29 Water Funds selected</div>
+			<div class="sty_blueHeader"><span id="fundCnt" style="font-weight:bold;"></span> of 29 Water Funds selected</div>
 		</section>
 		<!-- Population filter wrapper -->
-		<section id='cbWrap'>
-			<h3>Filter Funds by Downstream Population (in thousands)<img src='plugins/water_funds/images/info.png' alt='show downstream population info' class='sty_infoIcon' id='-infoDownPop'></h3> 
+		<section id="cbWrap">
+			<h3>Filter Funds by Downstream Population (in thousands)<img src="plugins/water_funds/images/info.png" alt="show downstream population info" class="sty_infoIcon" id="-infoDownPop"></h3> 
 			<div class="sty_flexRow">
 				<label class="form-component sty_flex1">
 					<input type="checkbox" value="PopSizeLess50"><div class="check"></div>
@@ -50,24 +50,23 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</section>
 		
 		<!-- Partner filter wrapper -->
-		<section id='partnerWrap'>
-			<h3>Filter funds by number of partners<img src='plugins/water_funds/images/info.png' alt='show partners info' class='sty_infoIcon' id='-infoPartners'></h3> 
+		<section id="partnerWrap" class="rangeOverride">
+			<h3>Filter funds by number of partners<img src="plugins/water_funds/images/info.png" alt="show partners info" class="sty_infoIcon" id="-infoPartners"></h3> 
 			<label class="form-component">
 				<input type="checkbox" value="PartnersNum"><div class="check"></div>
-				<span class="form-text">Number of partners: <span id='PartnersNum-range'>(All Values)</span></span>
+				<span class="form-text">Number of partners: <span id="PartnersNum-range">(All Values)</span></span>
 			</label>
-			<!--<div class='wf_sliderCb'><div class='wf_cbLabel1'><input type='checkbox' class='be_pointer' value='PartnersNum'>Number of partners: <span id='PartnersNum-range'>(All Values)</span></div></div>-->
-			<div class='wf_rangeWrap'>
-				<div class='sty_leftSlider'>0</div>
-				<div id='PartnersNumSlider' class='wf_rslide'></div>
-				<div class='sty_rightSlider'>60</div>
+			<div class="wf_rangeWrap slider-container sty_flexRow">
+				<div class="sty_leftSlider">0</div>
+				<div id="PartnersNumSlider" class="wf_rslide"></div>
+				<div class="sty_rightSlider">60</div>
 			</div>
 		</section>	
 		<!-- Filter by activity wrapper -->
 		<section>
-			<h3>Filter funds by activities<img src='plugins/water_funds/images/info.png' alt='show activities info' class='sty_infoIcon' id='-infoActivities'></h3> 
-			<div class='wf_controlsWrap choWrap'>
-				<select id='ch-activity' data-placeholder="Choose an activity" multiple class="chosen-islands" tabindex="16">
+			<h3>Filter funds by activities<img src="plugins/water_funds/images/info.png" alt="show activities info" class="sty_infoIcon" id="-infoActivities"></h3> 
+			<div class="wf_controlsWrap choWrap">
+				<select id="ch-activity" data-placeholder="Choose an activity" multiple class="chosen-islands" tabindex="16">
 					<option value=""></option>
 					<option value="LandProtection">Targeted land protection</option>
 					<option value="Revegetation">Revegetation</option>
@@ -82,9 +81,9 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</section>
 		<!-- Filter by benefits wrapper -->
 		<section>
-			<h3>Filter funds by benefits<img src='plugins/water_funds/images/info.png' alt='show benefits info' class='sty_infoIcon' id='-infoBenefits'></h3> 
-			<div class='wf_controlsWrap choWrap'>
-				<select id='ch-benefits' data-placeholder="Choose a benefit" multiple class="chosen-islands" tabindex="16">
+			<h3>Filter funds by benefits<img src="plugins/water_funds/images/info.png" alt="show benefits info" class="sty_infoIcon" id="-infoBenefits"></h3> 
+			<div class="wf_controlsWrap choWrap">
+				<select id="ch-benefits" data-placeholder="Choose a benefit" multiple class="chosen-islands" tabindex="16">
 					<option value=""></option>
 					<option value="WaterQuality">Water Quality</option>
 					<option value="WaterQuantity">Water Quantity</option>
@@ -96,53 +95,53 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</section>	
 	</div>
 
-	<h3 id='wf_largeHeader'>View water fund attributes</h3>
+	<h3 id="wf_largeHeader">View water fund attributes</h3>
 	<div>
-		<div class='sty_blueHeader' id='idenHeader'><b>Click map to select a Water Fund</b></div>
-		<div id='wf_attributeWrap' class='sty_hide'>
-			<div class='wf_imagePlace' id='wf_imagePlace'><img id='wfPic' class='wf_pic' src='' alt='Picture of Water Fund'></div>
-			<div class='wf_attPaddingBump'>
-				<div class='wf_attLine' style='font-weight:bold; text-align:center;'><span id='-WF_Name' class='wf_attSpan'></span> - <span id='zoomToFund' class='wf_zoomToText'> Zoom</span></div>
-				<div class='wf_attLine'><span class='wf_attribute'>Year it became operational</span>: <span id='-OperationalYear' class='wf_attSpan'></span></div>
-				<div class='wf_attLine'><span class='wf_attribute'>Downstream population size</span>: <span id='-PopSize' class='wf_attSpan'></span></div>
-				<div class='wf_attLine'><span class='wf_attribute'>Funding Source(s)</span>: <span id='-fundingSource' class='wf_attSpan'></span></div>
-				<div class='wf_attLine'><span class='wf_attribute'>Number of Partners</span>: <span id='-PartnersNum' class='wf_attSpan'></span></div>
-				<div class='wf_attLine'><span class='wf_attribute'>Area impacted (hectares)</span>: <span id='-Area_Actual' class='wf_attSpan'></span></div>
-				<div class='wf_attLine'><span class='wf_attribute'>Activities</span>: <span id='-activity' class='wf_attSpan'></span></div>
-				<div class='wf_attLine'><span class='wf_attribute'>Benefits</span>: <span id='-benefit' class='wf_attSpan'></span></div>
+		<div class="sty_blueHeader" id="idenHeader"><b>Click map to select a Water Fund</b></div>
+		<div id="wf_attributeWrap" class="sty_hide">
+			<div class="wf_imagePlace" id="wf_imagePlace"><img id="wfPic" class="wf_pic" src="" alt="Picture of Water Fund"></div>
+			<div class="wf_attPaddingBump">
+				<div class="wf_attLine" style="font-weight:bold; text-align:center;"><span id="-WF_Name" class="wf_attSpan"></span> - <span id="zoomToFund" class="wf_zoomToText"> Zoom</span></div>
+				<div class="wf_attLine"><span class="wf_attribute">Year it became operational</span>: <span id="-OperationalYear" class="wf_attSpan"></span></div>
+				<div class="wf_attLine"><span class="wf_attribute">Downstream population size</span>: <span id="-PopSize" class="wf_attSpan"></span></div>
+				<div class="wf_attLine"><span class="wf_attribute">Funding Source(s)</span>: <span id="-fundingSource" class="wf_attSpan"></span></div>
+				<div class="wf_attLine"><span class="wf_attribute">Number of Partners</span>: <span id="-PartnersNum" class="wf_attSpan"></span></div>
+				<div class="wf_attLine"><span class="wf_attribute">Area impacted (hectares)</span>: <span id="-Area_Actual" class="wf_attSpan"></span></div>
+				<div class="wf_attLine"><span class="wf_attribute">Activities</span>: <span id="-activity" class="wf_attSpan"></span></div>
+				<div class="wf_attLine"><span class="wf_attribute">Benefits</span>: <span id="-benefit" class="wf_attSpan"></span></div>
 			</div>
 		</div>
 	</div>
 </div>
-<div id='infoAccord' class='sty_flex1'>
-	<h3 class='infoDoc'>Documentation</h3>
-	<div class='sty_explainWrap' style='display:block;'>
+<div id="infoAccord" class="sty_flex1">
+	<h3 class="infoDoc">Documentation</h3>
+	<div class="sty_explainWrap" style="display:block;">
 		<p>
 			A water fund is a source water protection mechanism that pools funding from downstream beneficiaries to invest in upstream source water protection activities.  Water funds have four common characteristics: science-based plans, a multi-stakeholder approach, a funding mechanism and implementation capacity.  The Water Funds Explorer allows users to learn about operational water fund programs of The Nature Conservancy and its partners. 
 		</p> 
 	</div> 
-	<h3 class='infoDownPop'>Filter funds by downstream population</h3>
-	<div class='sty_explainWrap'>
+	<h3 class="infoDownPop">Filter funds by downstream population</h3>
+	<div class="sty_explainWrap">
 		<p>
-			The downstream population benefitting from upstream source water protection activities for a given water fund, as reported by that water fund’s program manager(s); usually corresponds to the size of one or more cities.
+			The downstream population benefitting from upstream source water protection activities for a given water fund, as reported by that water fund&#39;s program manager(s); usually corresponds to the size of one or more cities.
 		</p>
 	</div>
-	<h3 class='infoPartners'>Filter funds by number of partners</h3>
-	<div class='sty_explainWrap'>
+	<h3 class="infoPartners">Filter funds by number of partners</h3>
+	<div class="sty_explainWrap">
 		<p>
-			The number of partner organizations or groups collaborating on a given water fund, as reported by that water fund’s program manager(s).  Number of partners does not equate to size or success of a water fund.
+			The number of partner organizations or groups collaborating on a given water fund, as reported by that water fund&#39;s program manager(s).  Number of partners does not equate to size or success of a water fund.
 		</p>
 	</div>	
-	<h3 class='infoActivities'>Filter funds by activities</h3>
-	<div class='sty_explainWrap'>
+	<h3 class="infoActivities">Filter funds by activities</h3>
+	<div class="sty_explainWrap">
 		<p>
-			The main categories of source water protection activities undertaken by a given water fund, as reported by that water fund’s program manager(s).  Categories are defined in <a class='sty_anchor' target='_blank' href='plugins/water_funds/images/MethodsDocumentation.pdf'>data documentation</a>.
+			The main categories of source water protection activities undertaken by a given water fund, as reported by that water fund&#39;s program manager(s).  Categories are defined in <a class="sty_anchor" target="_blank" href="plugins/water_funds/images/MethodsDocumentation.pdf">data documentation</a>.
 		</p>
 	</div>	
-	<h3 class='infoBenefits'>Filter funds by benefits</h3>
-	<div class='sty_explainWrap'>
+	<h3 class="infoBenefits">Filter funds by benefits</h3>
+	<div class="sty_explainWrap">
 		<p>
-			The main categories of benefits anticipated as a result of a given water fund’s activities, as reported by that water fund’s program manager(s).  Categories are defined in <a class='sty_anchor' target='_blank' href='plugins/water_funds/images/MethodsDocumentation.pdf'>data documentation</a>. 
+			The main categories of benefits anticipated as a result of a given water fund&#39;s activities, as reported by that water fund&#39;s program manager(s).  Categories are defined in <a class="sty_anchor" target="_blank" href="plugins/water_funds/images/MethodsDocumentation.pdf">data documentation</a>. 
 		</p>
 	</div>	
 </div>

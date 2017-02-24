@@ -94,8 +94,8 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 				$('#' + t.id + 'partnerWrap input').on('click',lang.hitch(t,function(c){
 					var ben = c.target.value;
 					if (c.target.checked == true){
-						console.log($(c.currentTarget))
 						$('#' + t.id + 'partnerWrap').find('.wf_rangeWrap').slideDown();
+						$('#' + t.id + 'partnerWrap').find('.wf_rangeWrap').css("display", "flex");
 						var values = $('#' + t.id + ben + 'Slider').slider("option", "values");
 						$('#' + t.id + ben + 'Slider').slider('values', values); 
 					}else{

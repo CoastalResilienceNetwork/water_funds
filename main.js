@@ -116,7 +116,8 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 				$('#' + this.id).parent().parent().css('display', 'flex')
 			}		
 			// Get html from content.html, prepend appDiv.id to html element id's, and add to appDiv
-			var idUpdate = content.replace(/id='/g, "id='" + this.id);	
+			var idUpdate0 = content.replace(/for="/g, 'for="' + this.id);	
+			var idUpdate = idUpdate0.replace(/id="/g, 'id="' + this.id);
 			$('#' + this.id).html(idUpdate);
 			// bar chart
 			//this.barChart.makeChart(this);
