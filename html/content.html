@@ -51,13 +51,13 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</section>
 		
 		<!-- Partner filter wrapper -->
-		<section id="partnerWrap" class="rangeOverride">
+		<section id="partnerWrap">
 			<h3>Filter funds by number of partners<img src="plugins/water_funds/images/info.png" alt="show partners info" class="sty_infoIcon" id="-infoPartners"></h3> 
 			<label class="form-component">
 				<input type="checkbox" value="PartnersNum"><div class="check"></div>
 				<span class="form-text">Number of partners: <span id="PartnersNum-range">(All Values)</span></span>
 			</label>
-			<div class="wf_rangeWrap slider-container sty_flexRow">
+			<div class="wf_rangeWrap slider-container range-slider sty_flexRow">
 				<div class="sty_leftSlider">0</div>
 				<div id="PartnersNumSlider" class="wf_rslide slider"></div>
 				<div class="sty_rightSlider">60</div>
@@ -66,7 +66,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<!-- Filter by activity wrapper -->
 		<section>
 			<h3>Filter funds by activities<img src="plugins/water_funds/images/info.png" alt="show activities info" class="sty_infoIcon" id="-infoActivities"></h3> 
-			<div class="wf_controlsWrap choWrap">
+			<div class="wf_controlsWrap chosen-wrap">
 				<select id="ch-activity" data-placeholder="Choose an activity" multiple class="chosen-islands" tabindex="16">
 					<option value=""></option>
 					<option value="LandProtection">Targeted land protection</option>
@@ -83,7 +83,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<!-- Filter by benefits wrapper -->
 		<section>
 			<h3>Filter funds by benefits<img src="plugins/water_funds/images/info.png" alt="show benefits info" class="sty_infoIcon" id="-infoBenefits"></h3> 
-			<div class="wf_controlsWrap choWrap">
+			<div class="wf_controlsWrap chosen-wrap">
 				<select id="ch-benefits" data-placeholder="Choose a benefit" multiple class="chosen-islands" tabindex="16">
 					<option value=""></option>
 					<option value="WaterQuality">Water Quality</option>
