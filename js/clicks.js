@@ -81,10 +81,8 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 				// work with the partner slider
 				$( '#' + t.id + 'PartnersNumSlider' ).slider({
 					range:true, min: 0, max: 60, values:[0,60],
-					change: function( event, ui ) {
+					slide: function( event, ui ){
 						var ben = "PartnersNum"
-						t[ben] = ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1];	
-						t.clicks.filterChange(t);
 						var low = ui.values[0];
 						var high = ui.values[1];
 						if (low == high){						
@@ -92,6 +90,11 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						}else{
 							$('#' + t.id + ben + '-range').html(low + " - " + high);
 						}
+					},
+					change: function( event, ui ) {
+						var ben = "PartnersNum"
+						t[ben] = ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1];	
+						t.clicks.filterChange(t);
 					}
 				});
 				// hide and show slider
