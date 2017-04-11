@@ -28,7 +28,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 		hibernate: function () {
 			if (this.appDiv != undefined){
 				this.dynamicLayer.setVisibleLayers([-1])
-				//this.map.removeLayer(this.dynamicLayer);
 			}
 			this.open = "no";
 		},
@@ -40,7 +39,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 				$(this.printButton).hide();
 			}else{
 				this.dynamicLayer.setVisibleLayers(this.obj.visibleLayers);
-				//this.map.addLayer(this.dynamicLayer);
 				$('#' + this.id).parent().parent().css('display', 'flex');
 				this.clicks.updateAccord(this);
 			}	
@@ -49,8 +47,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj,
 		// Called when user hits the minimize '_' icon on the pluging. Also called before hibernate when users closes app by clicking 'X'.
 		deactivate: function () {
 			if (this.appDiv != undefined){
-				//this.dynamicLayer.setVisibleLayers([-1])
-				//this.map.removeLayer(this.dynamicLayer);
+				this.dynamicLayer.setVisibleLayers([-1])
 			}
 			this.open = "no";	
 		},	
