@@ -1,7 +1,8 @@
 define([
-	"esri/tasks/query", "esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", "dojo/_base/lang", "dojo/on", "jquery", './jquery-ui-1.11.2/jquery-ui', './esriapi', 'esri/dijit/editing/AttachmentEditor'
+	"esri/tasks/query", "esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", "dojo/_base/lang", "dojo/on", "jquery", './jquery-ui-1.11.2/jquery-ui', './esriapi', 'esri/dijit/editing/AttachmentEditor',
+	"./chosen.jquery"
 ],
-function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, AttachmentEditor ) {
+function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, AttachmentEditor, chosen ) {
         "use strict";
 
         return declare(null, {
@@ -10,6 +11,10 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 				$( function() {
 					$( "#" + t.id + "mainAccord" ).accordion({heightStyle: "fill"});
 					$( "#" + t.id + "infoAccord" ).accordion({heightStyle: "fill"});
+					$( '#' + t.id + 'mainAccord > h3' ).addClass("accord-header"); 
+					$( '#' + t.id + 'infoAccord > div' ).addClass("accord-body");
+					$( '#' + t.id + 'infoAccord > h3' ).addClass("accord-header"); 
+					$( '#' + t.id + 'mainAccord > div' ).addClass("accord-body");
 				});
 				// update accordians on window resize
 				var doit;
@@ -21,18 +26,10 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 				});	
 				// leave the get help section
 				$('#' + t.id + 'getHelpBtn').on('click',lang.hitch(t,function(c){
-					if ( $('#' + t.id + 'mainAccord').is(":visible") ){
-						$('#' + t.id + 'infoAccord').show();
-						$('#' + t.id + 'mainAccord').hide();
-						$('#' + t.id + 'getHelpBtn').html('Back to Water Funds Explorer');
-						t.clicks.updateAccord(t);
-						$('#' + t.id + 'infoAccord .infoDoc').trigger('click');
-					}else{
-						$('#' + t.id + 'infoAccord').hide();
-						$('#' + t.id + 'mainAccord').show();
-						$('#' + t.id + 'getHelpBtn').html('Back to Documentation');
-						t.clicks.updateAccord(t);
-					}				
+					$('#' + t.id + 'infoAccord').hide();
+					$('#' + t.id + 'mainAccord').show();
+					$('#' + t.id + 'getHelpBtnWrap').hide();
+					t.clicks.updateAccord(t);
 				}));						
 				// Infographic section clicks
 				$('#' + t.id + ' .sty_infoIcon').on('click',lang.hitch(t,function(c){
@@ -48,18 +45,9 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 // WORK WITH CHECKBOX'S//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// population checkbox
 				t.populationArray = []
-				$('#' + t.id + ' .sty_cbWrap').on('click',lang.hitch(t,function(c){
-					var val = "";
-					// if they click a label to toggle the checkbox
-					if (c.target.checked == undefined){
-						$(c.currentTarget.children[0].children[0]).prop("checked", !$(c.currentTarget.children[0].children[0]).prop("checked") )	
-						val = $(c.currentTarget.children[0].children[0]).val()
-					}
-					// they clicked on the checkbox
-					else{
-						val = c.target.value;
-					}
-					if ($(c.currentTarget.children[0].children[0]).prop('checked') === true){
+				$('#' + t.id + 'cbWrap input').on('click',lang.hitch(t,function(c){
+					var val = c.target.value;
+					if (c.target.checked == true){
 						t.populationArray.push(val);
 					}else{
 						var index = t.populationArray.indexOf(val);
@@ -67,7 +55,6 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 							t.populationArray.splice(index, 1);
 						}
 					}
-
 					t.popExpArray = [];
 					t.popExp = '';
 					var cnt = 0;
@@ -86,10 +73,8 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 				// work with the partner slider
 				$( '#' + t.id + 'PartnersNumSlider' ).slider({
 					range:true, min: 0, max: 60, values:[0,60],
-					change: function( event, ui ) {
+					slide: function( event, ui ){
 						var ben = "PartnersNum"
-						t[ben] = ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1];	
-						t.clicks.filterChange(t);
 						var low = ui.values[0];
 						var high = ui.values[1];
 						if (low == high){						
@@ -97,38 +82,35 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						}else{
 							$('#' + t.id + ben + '-range').html(low + " - " + high);
 						}
+					},
+					change: function( event, ui ) {
+						var ben = "PartnersNum"
+						t[ben] = ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1];	
+						t.clicks.filterChange(t);
 					}
 				});
 				// hide and show slider
-				$('#' + t.id + ' .wf_sliderCb').on('click',lang.hitch(t,function(c){
-					var ben = "";
-					// if they click a label to toggle the checkbox
-					if (c.target.checked == undefined){
-						$(c.currentTarget.children[0].children[0]).prop("checked", !$(c.currentTarget.children[0].children[0]).prop("checked") )	
-						ben = $(c.currentTarget.children[0].children[0]).val()
-					}
-					// they clicked on the checkbox
-					else{
-						ben = c.target.value;
-					}
-					if ($(c.currentTarget.children[0].children[0]).prop('checked') === true){
-						$(c.currentTarget).parent().find('.wf_rangeWrap').slideDown();
+				$('#' + t.id + 'partnerWrap input').on('click',lang.hitch(t,function(c){
+					var ben = c.target.value;
+					if (c.target.checked == true){
+						$('#' + t.id + 'partnerWrap').find('.wf_rangeWrap').slideDown();
+						$('#' + t.id + 'partnerWrap').find('.wf_rangeWrap').css("display", "flex");
 						var values = $('#' + t.id + ben + 'Slider').slider("option", "values");
 						$('#' + t.id + ben + 'Slider').slider('values', values); 
 					}else{
-						$(c.currentTarget).parent().find('.wf_rangeWrap').slideUp();
+						$('#' + t.id + 'partnerWrap').find('.wf_rangeWrap').slideUp();
 						t[ben] = "";
 						t.clicks.filterChange(t);
 						$('#' + t.id + ben + '-range').html("")
 					}
 				}));	
 // Work with Multi select dropdowns///////////////////////////////////////////////////////////////				
-				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(this,function($) {
-					var configCrs =  { '.chosen-islands' : {allow_single_deselect:true, width:"310px", disable_search:true}}
-					for (var selector in configCrs)  { $(selector).chosen(configCrs[selector]); }
-				}));
+				//require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(this,function($) {
+				var configCrs =  { '.chosen-islands' : {allow_single_deselect:true, width:"310px", disable_search:true}}
+				for (var selector in configCrs)  { $(selector).chosen(configCrs[selector]); }
+				//}));
 				// User selections on chosen menus for activities
-				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
+				//require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
 					//Select activity
 					t.activityArray = []
 					$('#' + t.id + 'ch-activity').chosen().change(lang.hitch(t,function(c, p){
@@ -157,9 +139,9 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						}));
 						t.clicks.filterChange(t);
 					}));
-				}));
+				//}));
 				// User selections on chosen menus for benefits
-				require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
+				//require(["jquery", "plugins/water_funds/js/chosen.jquery"],lang.hitch(t,function($) {	
 					//Select benefit
 					t.benefitArray = []
 					$('#' + t.id + 'ch-benefits').chosen().change(lang.hitch(t,function(c, p){
@@ -189,7 +171,7 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, At
 						// call filter change function 
 						t.clicks.filterChange(t);
 					}));
-				}));
+				//}));
 				// Zoom to water fund click
 				$('#' + t.id + 'zoomToFund').on('click',lang.hitch(t,function(){
 					t.zoomTo =  'yes';	

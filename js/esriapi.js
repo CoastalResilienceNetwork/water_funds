@@ -26,24 +26,36 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				}
 				t.dynamicLayer.on("load", lang.hitch(t, function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;
-					//t.clicks.filterChange(t);
+					// Save and Share Handler					
+					if (t.obj.stateSet == "yes"){
+						//extent
+						var extent = new Extent(t.obj.extent.xmin, t.obj.extent.ymin, t.obj.extent.xmax, t.obj.extent.ymax, new SpatialReference({ wkid:4326 }))
+						t.map.setExtent(extent, true);
+						// accordion visibility
+						$('#' + t.id + t.obj.accordVisible).show();
+						$('#' + t.id + t.obj.accordHidden).hide();
+						$('#' + t.id + 'getHelpBtn').html(t.obj.buttonText);
+						t.clicks.updateAccord(t);
+						$('#' + t.id + t.obj.accordVisible).accordion( "option", "active", t.obj.accordActive );
+						// population checkboxes
+						$.each(t.obj.checkedPopulation,lang.hitch(t,function(i,v){
+							$('#' + this.id + 'cbWrap input').each(lang.hitch(this,function(j,w){
+								if (v == $(w).val()){
+									$(w).trigger('click');
+								}			
+							}));	
+						}));	
+						t.obj.stateSet = "no";
+					}	
+					else{
+						t.clicks.filterChange(t);
+					}
 					t.map.setMapCursor("pointer");
 				}));
-				// water fund point symbology
-				var sym = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 14,
-						new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-						new Color([0,0,255]), 2),
-						new Color([206,200,58,0]));
-				var polySym = new SimpleFillSymbol( SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
-					SimpleLineSymbol.STYLE_SOLID, new Color([0,0,255]), 2 ), new Color([0,0,0,0.1]));
 				// create water fund point feature layer
 				t.waterFundPoint = new FeatureLayer(t.url + "/1", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
-				t.waterFundPoint.setSelectionSymbol(sym);
-				//t.map.addLayer(t.waterFundPoint);
 				// create water fund polygon layer
 				t.waterFundPoly = new FeatureLayer(t.url + "/3", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
-				t.waterFundPoly.setSelectionSymbol(polySym);
-				//t.map.addLayer(t.waterFundPoly);
 				// on water fund selection complete
 				t.waterFundPoint.on('selection-complete', lang.hitch(t,function(evt){
 					t.esriapi.waterFundAttributeBuilder(evt,t);
@@ -58,7 +70,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.esriapi.waterFundAttributeBuilder(evt,t);
 					}	
 				}));
-				
 				// call the filter function to update the vis layers when on zoom. 
 				t.map.on("zoom-end", lang.hitch(t, function(evt){
 					t.mapScale  = t.map.getScale();
@@ -68,7 +79,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.map.on("update-end", lang.hitch(t,function(e){
 					t.map.setMapCursor("pointer");
 				}));
-				
 				// on map click do below
 				t.map.on("click", lang.hitch(t, function(evt) {
 					if (t.open == "yes"){
