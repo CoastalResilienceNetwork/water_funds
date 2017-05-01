@@ -1,8 +1,8 @@
 define([
-	"esri/tasks/query", "esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", "dojo/_base/lang", "dojo/on", "jquery", './jquery-ui-1.11.2/jquery-ui', './esriapi', 'esri/dijit/editing/AttachmentEditor',
+	"esri/tasks/query", "esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", "dojo/_base/lang", "dojo/on", './esriapi', 'esri/dijit/editing/AttachmentEditor',
 	"./chosen.jquery"
 ],
-function ( Query, QueryTask, declare, FeatureLayer, lang, on, $, ui, esriapi, AttachmentEditor, chosen ) {
+function ( Query, QueryTask, declare, FeatureLayer, lang, on, esriapi, AttachmentEditor, chosen ) {
         "use strict";
 
         return declare(null, {
