@@ -1,14 +1,10 @@
-// Pull in your favorite version of jquery 
-require({ 
-	packages: [{ name: "jquery", location: "http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/", main: "jquery.min" }] 
-});
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
 	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/_base/lang", "dojo/text!./obj.json", 
-	"jquery", "dojo/text!./html/content.html", './js/jquery-ui-1.11.2/jquery-ui', './js/navigation', './js/esriapi', './js/clicks', './js/barChart'
+	"dojo/text!./html/content.html", './js/navigation', './js/esriapi', './js/clicks', './js/barChart'
 ],
 function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, lang, obj, 
-			$, content, ui, navigation, esriapi, clicks, barChart ) {
+			content, navigation, esriapi, clicks, barChart ) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Water Funds", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
